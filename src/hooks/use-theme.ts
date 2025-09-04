@@ -25,9 +25,16 @@ export function ThemeProvider({
   defaultTheme = 'system',
   storageKey = 'vru-theme',
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (typeof window !== 'undefined' ? localStorage.getItem(storageKey) as Theme : null) || defaultTheme
-  );
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem(storageKey) as Theme;
+      if (storedTheme) {
+        setTheme(storedTheme);
+      }
+    }
+  }, [storageKey]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
