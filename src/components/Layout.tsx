@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
 import { useUserRole } from '@/hooks/use-user-role';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { 
   Home, 
   Users, 
@@ -13,7 +14,10 @@ import {
   Building2, 
   Settings,
   LogOut,
-  LogIn
+  LogIn,
+  Mail,
+  Phone,
+  MapPin
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -43,31 +47,34 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background">
+      <ThemeToggle />
+      
       {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
+      <header className="glass-effect sticky top-0 z-40 border-b">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Scale className="w-5 h-5 text-primary-foreground" />
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-soft group-hover:shadow-glow transition-all duration-300">
+                <Scale className="w-6 h-6 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                ВРУ
-              </span>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
+                  ВРУ
+                </span>
+                <span className="text-xs text-muted-foreground -mt-1">
+                  Парламент
+                </span>
+              </div>
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-1">
+            <nav className="hidden lg:flex items-center space-x-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                      isActive(item.href)
-                        ? 'bg-primary text-primary-foreground shadow-soft'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                    }`}
+                    className={`nav-item ${isActive(item.href) ? 'active' : ''}`}
                   >
                     <Icon className="w-4 h-4" />
                     <span>{item.name}</span>
@@ -81,20 +88,20 @@ export const Layout = ({ children }: LayoutProps) => {
                 <>
                   {(isAdmin() || canManageTenders() || canManageLegal()) && (
                     <Link to="/admin">
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="glass-effect">
                         <Settings className="w-4 h-4 mr-2" />
                         Адмін
                       </Button>
                     </Link>
                   )}
-                  <Button onClick={handleSignOut} variant="outline" size="sm">
+                  <Button onClick={handleSignOut} variant="outline" size="sm" className="glass-effect">
                     <LogOut className="w-4 h-4 mr-2" />
                     Вийти
                   </Button>
                 </>
               ) : (
                 <Link to="/auth">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="glass-effect">
                     <LogIn className="w-4 h-4 mr-2" />
                     Увійти
                   </Button>
@@ -110,10 +117,64 @@ export const Layout = ({ children }: LayoutProps) => {
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t bg-card/30 py-8">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-sm text-muted-foreground">
+      {/* Footer with Contact */}
+      <footer className="glass-effect border-t mt-16">
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Contact Info */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Mail className="w-5 h-5 text-primary" />
+                Контакти
+              </h3>
+              <div className="space-y-3 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4" />
+                  <span>+380 44 255-3636</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4" />
+                  <span>info@rada.gov.ua</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4" />
+                  <span>вул. Грушевського, 5, Київ, 01008</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Швидкі посилання</h3>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                {navigation.slice(0, 4).map((item) => (
+                  <Link 
+                    key={item.name}
+                    to={item.href} 
+                    className="text-muted-foreground hover:text-primary transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Additional Info */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Про портал</h3>
+              <p className="text-sm text-muted-foreground">
+                Офіційний веб-портал Верховної Ради України. 
+                Актуальна інформація про законодавчу діяльність та парламентські процедури.
+              </p>
+              <Link to="/contact" className="inline-block">
+                <Button variant="outline" size="sm" className="glass-effect">
+                  Зв'язатися з нами
+                </Button>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="border-t border-border/50 mt-8 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; 2024 Верховна Рада України. Всі права захищені.</p>
           </div>
         </div>

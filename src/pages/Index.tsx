@@ -170,9 +170,9 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-gradient-card border-0">
+            <a href="/laws" className="interactive-card glow-border">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4 shadow-soft">
                   <FileText className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>Законодавча база</CardTitle>
@@ -180,11 +180,11 @@ const Index = () => {
                   Доступ до повного архіву законів та нормативних актів України
                 </CardDescription>
               </CardHeader>
-            </Card>
+            </a>
             
-            <Card className="hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-gradient-card border-0">
+            <a href="/legal-school" className="interactive-card glow-border">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4 shadow-soft">
                   <GraduationCap className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>Школа права</CardTitle>
@@ -192,19 +192,19 @@ const Index = () => {
                   Навчальні матеріали та курси з правознавства для громадян
                 </CardDescription>
               </CardHeader>
-            </Card>
+            </a>
             
-            <Card className="hover:shadow-medium transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-gradient-card border-0">
+            <a href="/tenders" className="interactive-card glow-border">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4 shadow-soft">
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>Тендери</CardTitle>
                 <CardDescription>
-                  Активні конкурси та можливості співпраці з парламентом
+                  Активні конкурси та можливості співпراці з парламентом
                 </CardDescription>
               </CardHeader>
-            </Card>
+            </a>
           </div>
         </section>
       </div>
