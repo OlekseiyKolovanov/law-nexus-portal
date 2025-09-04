@@ -56,7 +56,7 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  const value = {
+  const contextValue = {
     theme,
     setTheme: (theme: Theme) => {
       if (typeof window !== 'undefined') {
@@ -67,7 +67,7 @@ export function ThemeProvider({
   };
 
   return (
-    <ThemeProviderContext.Provider value={value}>
+    <ThemeProviderContext.Provider value={contextValue}>
       {children}
     </ThemeProviderContext.Provider>
   );
