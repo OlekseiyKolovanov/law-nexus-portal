@@ -87,11 +87,11 @@ const Index = () => {
     <Layout>
       <div className="space-y-8">
         {/* Hero Section */}
-        <section className="relative overflow-hidden rounded-3xl bg-gradient-hero border shadow-medium">
+        <section className="relative overflow-hidden rounded-3xl bg-gradient-hero border border-border/20 shadow-large floating-element">
           <div className="relative px-8 py-16 text-center">
             <div className="mx-auto max-w-4xl">
               <div className="flex justify-center mb-6">
-                <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center shadow-glow animate-glow">
+                <div className="w-24 h-24 bg-gradient-icon rounded-3xl flex items-center justify-center shadow-glow animate-glow icon-glow">
                   <Scale className="w-10 h-10 text-primary-foreground" />
                 </div>
               </div>
@@ -103,16 +103,22 @@ const Index = () => {
                 законодавчу діяльність, керівництво та можливості співпраці.
               </p>
               <div className="flex flex-wrap justify-center gap-4 animate-fade-in">
-                <div className="flex items-center space-x-2 px-4 py-2 bg-card/50 rounded-full border">
-                  <Award className="w-5 h-5 text-primary" />
+                <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-glass backdrop-blur-sm rounded-2xl border border-border/20 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-1">
+                  <div className="w-6 h-6 bg-gradient-icon rounded-lg flex items-center justify-center">
+                    <Award className="w-3 h-3 text-primary-foreground" />
+                  </div>
                   <span className="text-sm font-medium">Прозорість</span>
                 </div>
-                <div className="flex items-center space-x-2 px-4 py-2 bg-card/50 rounded-full border">
-                  <TrendingUp className="w-5 h-5 text-primary" />
+                <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-glass backdrop-blur-sm rounded-2xl border border-border/20 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-1">
+                  <div className="w-6 h-6 bg-gradient-icon rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-3 h-3 text-primary-foreground" />
+                  </div>
                   <span className="text-sm font-medium">Ефективність</span>
                 </div>
-                <div className="flex items-center space-x-2 px-4 py-2 bg-card/50 rounded-full border">
-                  <Building2 className="w-5 h-5 text-primary" />
+                <div className="flex items-center space-x-2 px-6 py-3 bg-gradient-glass backdrop-blur-sm rounded-2xl border border-border/20 shadow-soft hover:shadow-medium transition-all duration-500 hover:-translate-y-1">
+                  <div className="w-6 h-6 bg-gradient-icon rounded-lg flex items-center justify-center">
+                    <Building2 className="w-3 h-3 text-primary-foreground" />
+                  </div>
                   <span className="text-sm font-medium">Розвиток</span>
                 </div>
               </div>
@@ -133,7 +139,7 @@ const Index = () => {
               return (
                 <Card 
                   key={card.title} 
-                  className="relative overflow-hidden hover:shadow-medium transition-all duration-300 hover:-translate-y-1 animate-scale-in bg-gradient-card border-0"
+                  className="relative overflow-hidden hover:shadow-glow transition-all duration-500 hover:-translate-y-2 hover:scale-105 animate-scale-in bg-gradient-card border border-border/20 rounded-2xl floating-element"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardHeader className="pb-2">
@@ -141,7 +147,7 @@ const Index = () => {
                       <CardTitle className="text-sm font-medium text-muted-foreground">
                         {card.title}
                       </CardTitle>
-                      <div className={`p-2 rounded-lg bg-gradient-to-r ${card.gradient}`}>
+                      <div className={`p-3 rounded-2xl bg-gradient-to-r ${card.gradient} shadow-medium icon-glow`}>
                         <Icon className="w-4 h-4 text-white" />
                       </div>
                     </div>
@@ -170,9 +176,9 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="/laws" className="interactive-card glow-border">
+            <a href="/laws" className="interactive-card glow-border group">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4 shadow-soft">
+                <div className="w-14 h-14 bg-gradient-to-r from-blue-500/80 to-blue-600/80 rounded-2xl flex items-center justify-center mb-4 shadow-medium icon-glow group-hover:scale-110 transition-transform duration-500">
                   <FileText className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>Законодавча база</CardTitle>
@@ -182,9 +188,9 @@ const Index = () => {
               </CardHeader>
             </a>
             
-            <a href="/legal-school" className="interactive-card glow-border">
+            <a href="/legal-school" className="interactive-card glow-border group">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4 shadow-soft">
+                <div className="w-14 h-14 bg-gradient-to-r from-green-500/80 to-green-600/80 rounded-2xl flex items-center justify-center mb-4 shadow-medium icon-glow group-hover:scale-110 transition-transform duration-500">
                   <GraduationCap className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>Школа права</CardTitle>
@@ -194,9 +200,9 @@ const Index = () => {
               </CardHeader>
             </a>
             
-            <a href="/tenders" className="interactive-card glow-border">
+            <a href="/tenders" className="interactive-card glow-border group">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4 shadow-soft">
+                <div className="w-14 h-14 bg-gradient-to-r from-purple-500/80 to-purple-600/80 rounded-2xl flex items-center justify-center mb-4 shadow-medium icon-glow group-hover:scale-110 transition-transform duration-500">
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle>Тендери</CardTitle>

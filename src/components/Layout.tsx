@@ -50,15 +50,15 @@ export const Layout = ({ children }: LayoutProps) => {
       <ThemeToggle />
       
       {/* Header */}
-      <header className="glass-effect sticky top-0 z-40 border-b">
+      <header className="floating-element sticky top-2 z-40 mx-4 mt-2">
         <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-14 items-center justify-between">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-soft group-hover:shadow-glow transition-all duration-300">
+              <div className="w-12 h-12 bg-gradient-icon rounded-2xl flex items-center justify-center shadow-medium group-hover:shadow-glow transition-all duration-500 icon-glow">
                 <Scale className="w-6 h-6 text-primary-foreground" />
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                   ВРУ
                 </span>
                 <span className="text-xs text-muted-foreground -mt-1">
@@ -67,7 +67,7 @@ export const Layout = ({ children }: LayoutProps) => {
               </div>
             </Link>
 
-            <nav className="hidden lg:flex items-center space-x-2">
+            <nav className="hidden lg:flex items-center space-x-3">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -76,32 +76,32 @@ export const Layout = ({ children }: LayoutProps) => {
                     to={item.href}
                     className={`nav-item ${isActive(item.href) ? 'active' : ''}`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
                     <span>{item.name}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3">
               {user ? (
                 <>
                   {(isAdmin() || canManageTenders() || canManageLegal()) && (
                     <Link to="/admin">
-                      <Button variant="outline" size="sm" className="glass-effect">
+                      <Button variant="outline" size="sm" className="soft-button">
                         <Settings className="w-4 h-4 mr-2" />
                         Адмін
                       </Button>
                     </Link>
                   )}
-                  <Button onClick={handleSignOut} variant="outline" size="sm" className="glass-effect">
+                  <Button onClick={handleSignOut} variant="outline" size="sm" className="soft-button">
                     <LogOut className="w-4 h-4 mr-2" />
                     Вийти
                   </Button>
                 </>
               ) : (
                 <Link to="/auth">
-                  <Button variant="outline" size="sm" className="glass-effect">
+                  <Button variant="outline" size="sm" className="soft-button">
                     <LogIn className="w-4 h-4 mr-2" />
                     Увійти
                   </Button>
@@ -118,26 +118,34 @@ export const Layout = ({ children }: LayoutProps) => {
       </main>
 
       {/* Footer with Contact */}
-      <footer className="glass-effect border-t mt-16">
+      <footer className="floating-element mx-4 mb-4 mt-16">
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Contact Info */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold flex items-center gap-2">
-                <Mail className="w-5 h-5 text-primary" />
+                <div className="w-8 h-8 bg-gradient-icon rounded-xl flex items-center justify-center icon-glow">
+                  <Mail className="w-4 h-4 text-primary-foreground" />
+                </div>
                 Контакти
               </h3>
               <div className="space-y-3 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
+                  <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
+                    <Phone className="w-3 h-3 text-primary" />
+                  </div>
                   <span>+380 44 255-3636</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
+                  <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
+                    <Mail className="w-3 h-3 text-primary" />
+                  </div>
                   <span>info@rada.gov.ua</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
+                  <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
+                    <MapPin className="w-3 h-3 text-primary" />
+                  </div>
                   <span>вул. Грушевського, 5, Київ, 01008</span>
                 </div>
               </div>
@@ -151,7 +159,7 @@ export const Layout = ({ children }: LayoutProps) => {
                   <Link 
                     key={item.name}
                     to={item.href} 
-                    className="text-muted-foreground hover:text-primary transition-colors duration-200"
+                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-1"
                   >
                     {item.name}
                   </Link>
@@ -167,14 +175,14 @@ export const Layout = ({ children }: LayoutProps) => {
                 Актуальна інформація про законодавчу діяльність та парламентські процедури.
               </p>
               <Link to="/contact" className="inline-block">
-                <Button variant="outline" size="sm" className="glass-effect">
+                <Button variant="outline" size="sm" className="soft-button">
                   Зв'язатися з нами
                 </Button>
               </Link>
             </div>
           </div>
           
-          <div className="border-t border-border/50 mt-8 pt-8 text-center text-sm text-muted-foreground">
+          <div className="border-t border-border/20 mt-8 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; 2024 Верховна Рада України. Всі права захищені.</p>
           </div>
         </div>

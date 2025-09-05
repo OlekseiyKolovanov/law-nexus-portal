@@ -43,18 +43,23 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
 
     /* Custom gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)/0.8) 50%, hsl(var(--secondary)/0.1) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)/0.9), hsl(var(--card)/0.6));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)/0.9), hsl(var(--primary-glow)/0.8));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)/0.95) 0%, hsl(var(--card)/0.7) 50%, hsl(var(--secondary)/0.05) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)/0.8), hsl(var(--card)/0.4), hsl(var(--primary)/0.02));
+    --gradient-glass: linear-gradient(145deg, hsl(var(--card)/0.6), hsl(var(--card)/0.3));
+    --gradient-icon: linear-gradient(135deg, hsl(var(--primary)/0.8), hsl(var(--primary-glow)/0.6));
     
-    /* Custom shadows with inner glow */
-    --shadow-soft: 0 2px 8px hsl(var(--foreground)/0.04), inset 0 1px 0 hsl(var(--background)/0.8);
-    --shadow-medium: 0 4px 24px hsl(var(--foreground)/0.08), 0 0 16px hsl(var(--primary)/0.05);
-    --shadow-glow: 0 0 32px hsl(var(--primary-glow)/0.3), inset 0 1px 0 hsl(var(--card)/0.9);
+    /* Enhanced shadows with multiple layers */
+    --shadow-soft: 0 1px 3px hsl(var(--foreground)/0.06), 0 1px 2px hsl(var(--foreground)/0.04), inset 0 1px 0 hsl(var(--background)/0.9);
+    --shadow-medium: 0 4px 12px hsl(var(--foreground)/0.08), 0 2px 4px hsl(var(--foreground)/0.06), 0 0 20px hsl(var(--primary)/0.04);
+    --shadow-large: 0 8px 32px hsl(var(--foreground)/0.12), 0 4px 16px hsl(var(--foreground)/0.08), 0 0 40px hsl(var(--primary)/0.06);
+    --shadow-glow: 0 0 24px hsl(var(--primary-glow)/0.4), 0 0 48px hsl(var(--primary)/0.2), inset 0 1px 0 hsl(var(--card)/0.8);
+    --shadow-inner: inset 0 2px 4px hsl(var(--foreground)/0.06), inset 0 1px 2px hsl(var(--foreground)/0.04);
     
     /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .dark {
@@ -95,15 +100,19 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Dark theme gradients with subtle glow */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)/0.8) 50%, hsl(var(--primary)/0.05) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)/0.9), hsl(var(--card)/0.6), hsl(var(--primary)/0.02));
+    /* Enhanced dark theme gradients with transparency */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)/0.9), hsl(var(--primary-glow)/0.7));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)/0.95) 0%, hsl(var(--card)/0.6) 50%, hsl(var(--primary)/0.03) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)/0.7), hsl(var(--card)/0.4), hsl(var(--primary)/0.02));
+    --gradient-glass: linear-gradient(145deg, hsl(var(--card)/0.5), hsl(var(--card)/0.2));
+    --gradient-icon: linear-gradient(135deg, hsl(var(--primary)/0.8), hsl(var(--primary-glow)/0.6));
     
-    /* Dark theme shadows with inner glow and subtle color */
-    --shadow-soft: 0 2px 8px hsl(var(--background)/0.8), inset 0 1px 0 hsl(var(--card)/0.1);
-    --shadow-medium: 0 4px 24px hsl(var(--background)/0.4), 0 0 16px hsl(var(--primary)/0.1), inset 0 1px 0 hsl(var(--card)/0.1);
-    --shadow-glow: 0 0 32px hsl(var(--primary-glow)/0.4), 0 0 64px hsl(var(--primary)/0.2), inset 0 1px 0 hsl(var(--card)/0.2);
+    /* Enhanced dark theme shadows */
+    --shadow-soft: 0 1px 3px hsl(var(--background)/0.6), 0 1px 2px hsl(var(--background)/0.4), inset 0 1px 0 hsl(var(--card)/0.15);
+    --shadow-medium: 0 4px 12px hsl(var(--background)/0.5), 0 2px 4px hsl(var(--background)/0.3), 0 0 20px hsl(var(--primary)/0.08);
+    --shadow-large: 0 8px 32px hsl(var(--background)/0.7), 0 4px 16px hsl(var(--background)/0.5), 0 0 40px hsl(var(--primary)/0.12);
+    --shadow-glow: 0 0 24px hsl(var(--primary-glow)/0.5), 0 0 48px hsl(var(--primary)/0.3), inset 0 1px 0 hsl(var(--card)/0.2);
+    --shadow-inner: inset 0 2px 4px hsl(var(--background)/0.4), inset 0 1px 2px hsl(var(--background)/0.2);
   }
 }
 
@@ -112,47 +121,92 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-500;
+    @apply bg-background text-foreground transition-all duration-500;
     background-attachment: fixed;
+    background-image: radial-gradient(circle at 20% 80%, hsl(var(--primary)/0.03) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsl(var(--secondary)/0.03) 0%, transparent 50%);
   }
 }
 
 @layer components {
   .glass-effect {
-    @apply bg-card/60 backdrop-blur-md border border-border/50;
-    @apply shadow-soft;
+    @apply bg-gradient-glass backdrop-blur-xl border border-border/30;
+    @apply shadow-medium;
+    @apply relative overflow-hidden;
+  }
+  
+  .glass-effect::before {
+    @apply absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent;
+    @apply pointer-events-none;
+    content: '';
   }
   
   .hover-glow {
-    @apply transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5;
+    @apply transition-all duration-500 hover:shadow-glow hover:-translate-y-1 hover:scale-[1.02];
+    @apply hover:bg-gradient-card;
   }
   
   .nav-item {
-    @apply relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300;
-    @apply hover:bg-accent/80 hover:text-accent-foreground;
-    @apply before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r;
-    @apply before:from-primary/10 before:via-primary-glow/15 before:to-secondary/10;
-    @apply before:opacity-0 before:blur-md before:transition-all before:duration-500;
-    @apply hover:before:opacity-100 hover:before:blur-0;
-    @apply hover:shadow-soft;
+    @apply relative px-5 py-3 rounded-2xl text-sm font-medium transition-all duration-500;
+    @apply bg-gradient-glass backdrop-blur-sm border border-border/20;
+    @apply hover:bg-gradient-card hover:text-accent-foreground hover:border-border/40;
+    @apply hover:shadow-medium hover:-translate-y-0.5;
+    @apply before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r;
+    @apply before:from-primary/8 before:via-primary-glow/12 before:to-secondary/8;
+    @apply before:opacity-0 before:transition-all before:duration-500;
+    @apply hover:before:opacity-100;
   }
   
   .nav-item.active {
-    @apply bg-primary/90 text-primary-foreground shadow-medium;
-    @apply before:opacity-100 before:blur-0;
+    @apply bg-gradient-primary text-primary-foreground shadow-glow border-primary/30;
+    @apply before:opacity-100;
+    @apply transform scale-105;
   }
   
   .interactive-card {
-    @apply glass-effect hover-glow cursor-pointer;
-    @apply transform transition-all duration-300;
-    @apply hover:scale-[1.02] active:scale-[0.98];
+    @apply glass-effect hover-glow cursor-pointer rounded-2xl;
+    @apply transform transition-all duration-500;
+    @apply hover:scale-[1.03] active:scale-[0.97];
+    @apply hover:rotate-1 active:rotate-0;
   }
   
   .glow-border {
-    @apply relative;
-    @apply before:absolute before:inset-0 before:rounded-xl before:p-px;
-    @apply before:bg-gradient-to-r before:from-primary/50 before:via-primary-glow/50 before:to-secondary/50;
-    @apply before:transition-all before:duration-300 before:opacity-0;
+    @apply relative rounded-2xl;
+    @apply before:absolute before:inset-0 before:rounded-2xl before:p-px;
+    @apply before:bg-gradient-to-r before:from-primary/40 before:via-primary-glow/40 before:to-secondary/40;
+    @apply before:transition-all before:duration-500 before:opacity-0;
     @apply hover:before:opacity-100;
+    @apply after:absolute after:inset-px after:rounded-2xl after:bg-gradient-glass;
+    @apply after:transition-all after:duration-500;
+  }
+  
+  .icon-glow {
+    @apply relative;
+    @apply before:absolute before:inset-0 before:rounded-full before:bg-gradient-icon;
+    @apply before:opacity-80 before:blur-sm before:transition-all before:duration-500;
+    @apply hover:before:opacity-100 hover:before:blur-0 hover:before:scale-110;
+  }
+  
+  .soft-button {
+    @apply bg-gradient-glass backdrop-blur-sm border border-border/30 rounded-2xl;
+    @apply shadow-soft hover:shadow-medium transition-all duration-500;
+    @apply hover:-translate-y-0.5 hover:scale-105 active:scale-95;
+    @apply relative overflow-hidden;
+  }
+  
+  .soft-button::before {
+    @apply absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent;
+    @apply opacity-0 transition-opacity duration-500;
+    content: '';
+  }
+  
+  .soft-button:hover::before {
+    @apply opacity-100;
+  }
+  
+  .floating-element {
+    @apply bg-gradient-glass backdrop-blur-xl border border-border/20 rounded-3xl;
+    @apply shadow-large hover:shadow-glow transition-all duration-700;
+    @apply hover:-translate-y-2 hover:rotate-1;
   }
 }

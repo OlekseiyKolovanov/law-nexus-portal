@@ -77,10 +77,10 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-medium animate-scale-in">
+    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
+      <Card className="w-full max-w-md shadow-glow animate-scale-in bg-gradient-card border border-border/20 rounded-3xl floating-element">
         <CardHeader className="text-center">
-          <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-glow">
+          <div className="w-20 h-20 bg-gradient-icon rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-glow icon-glow">
             <Scale className="w-8 h-8 text-primary-foreground" />
           </div>
           <CardTitle className="text-2xl">
@@ -104,7 +104,7 @@ const Auth = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading}
-                className="transition-all duration-200 focus:shadow-soft"
+                className="transition-all duration-300 focus:shadow-medium rounded-xl bg-gradient-glass backdrop-blur-sm border-border/30"
               />
             </div>
             <div className="space-y-2">
@@ -116,12 +116,12 @@ const Auth = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
-                className="transition-all duration-200 focus:shadow-soft"
+                className="transition-all duration-300 focus:shadow-medium rounded-xl bg-gradient-glass backdrop-blur-sm border-border/30"
               />
             </div>
             <Button 
               type="submit" 
-              className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300" 
+              className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-500 rounded-2xl hover:scale-105 hover:-translate-y-1" 
               disabled={loading}
             >
               {loading ? 'Завантаження...' : (isSignUp ? 'Зареєструватися' : 'Увійти')}
@@ -132,7 +132,7 @@ const Auth = () => {
             <button
               type="button"
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
+              className="text-sm text-muted-foreground hover:text-foreground transition-all duration-300 underline-offset-4 hover:underline hover:scale-105"
               disabled={loading}
             >
               {isSignUp 
