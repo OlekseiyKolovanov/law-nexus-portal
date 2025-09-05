@@ -214,21 +214,40 @@ export const AdminTenders = () => {
 
   const fetchResponses = async (tenderId: string) => {
     try {
-      const { data, error } = await supabase
+      // First get responses without profiles to avoid RLS issues
+      const { data: responsesData, error: responsesError } = await supabase
         .from('tender_form_responses')
-        .select(`
-          *,
-          profiles (
-            first_name,
-            last_name,
-            nickname
-          )
-        `)
+        .select('*')
         .eq('tender_id', tenderId)
         .order('submitted_at', { ascending: false });
 
-      if (error) throw error;
-      setResponses(data as TenderResponse[] || []);
+      if (responsesError) throw responsesError;
+
+      // Then get profiles for users who submitted responses
+      const userIds = responsesData?.map(r => r.user_id).filter(Boolean) || [];
+      let profilesData = [];
+      
+      if (userIds.length > 0) {
+        const { data: profiles, error: profilesError } = await supabase
+          .from('profiles')
+          .select('user_id, first_name, last_name, nickname')
+          .in('user_id', userIds);
+        
+        if (!profilesError) {
+          profilesData = profiles || [];
+        }
+      }
+
+      // Combine responses with profiles
+      const combinedData = responsesData?.map(response => {
+        const profile = profilesData.find(p => p.user_id === response.user_id);
+        return {
+          ...response,
+          profiles: profile || null
+        };
+      }) || [];
+
+      setResponses(combinedData as TenderResponse[]);
     } catch (error) {
       console.error('Error fetching responses:', error);
       toast({
