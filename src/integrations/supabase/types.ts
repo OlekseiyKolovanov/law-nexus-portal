@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       enterprises: {
         Row: {
+          authorized_person: string | null
           business_type: string
           contact_info: string | null
           created_at: string
@@ -27,6 +28,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          authorized_person?: string | null
           business_type: string
           contact_info?: string | null
           created_at?: string
@@ -38,6 +40,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          authorized_person?: string | null
           business_type?: string
           contact_info?: string | null
           created_at?: string
