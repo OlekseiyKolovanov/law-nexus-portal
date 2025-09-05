@@ -17,7 +17,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="sm"
-          className="fixed top-6 right-6 z-50 w-12 h-12 rounded-2xl bg-gradient-glass backdrop-blur-xl border border-border/20 shadow-medium hover:shadow-glow transition-all duration-500 hover:scale-110 hover:-translate-y-1 icon-glow"
+          className="fixed top-6 right-6 z-50 w-10 h-10 rounded-xl bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-soft hover:shadow-medium transition-all duration-300 hover:scale-105"
           title="Змінити тему"
         >
           <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -25,7 +25,7 @@ export function ThemeToggle() {
           <span className="sr-only">Змінити тему</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-gradient-glass backdrop-blur-xl border border-border/20 shadow-large rounded-2xl">
+      <DropdownMenuContent align="end" className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-medium rounded-xl">
         <DropdownMenuItem onClick={() => setTheme('light')} className="cursor-pointer">
           <Sun className="mr-2 h-4 w-4" />
           <span>Світла</span>

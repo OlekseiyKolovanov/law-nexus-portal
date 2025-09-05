@@ -50,11 +50,12 @@ export const Layout = ({ children }: LayoutProps) => {
       <ThemeToggle />
       
       {/* Header */}
-      <header className="floating-element sticky top-2 z-40 mx-4 mt-2">
+      <header className="sticky top-2 z-40 mx-4 mt-2">
+        <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-large">
         <div className="container mx-auto px-4">
           <div className="flex h-14 items-center justify-between">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-12 h-12 bg-gradient-icon rounded-2xl flex items-center justify-center shadow-medium group-hover:shadow-glow transition-all duration-500 icon-glow">
+              <div className="w-10 h-10 bg-primary/80 rounded-xl flex items-center justify-center shadow-soft group-hover:shadow-medium transition-all duration-300 group-hover:scale-105">
                 <Scale className="w-6 h-6 text-primary-foreground" />
               </div>
               <div className="flex flex-col">
@@ -88,20 +89,20 @@ export const Layout = ({ children }: LayoutProps) => {
                 <>
                   {(isAdmin() || canManageTenders() || canManageLegal()) && (
                     <Link to="/admin">
-                      <Button variant="outline" size="sm" className="soft-button">
+                      <Button variant="outline" size="sm" className="bg-white/40 dark:bg-white/5 backdrop-blur-sm border-white/20 dark:border-white/10 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300">
                         <Settings className="w-4 h-4 mr-2" />
                         Адмін
                       </Button>
                     </Link>
                   )}
-                  <Button onClick={handleSignOut} variant="outline" size="sm" className="soft-button">
+                  <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/40 dark:bg-white/5 backdrop-blur-sm border-white/20 dark:border-white/10 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300">
                     <LogOut className="w-4 h-4 mr-2" />
                     Вийти
                   </Button>
                 </>
               ) : (
                 <Link to="/auth">
-                  <Button variant="outline" size="sm" className="soft-button">
+                  <Button variant="outline" size="sm" className="bg-white/40 dark:bg-white/5 backdrop-blur-sm border-white/20 dark:border-white/10 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300">
                     <LogIn className="w-4 h-4 mr-2" />
                     Увійти
                   </Button>
@@ -109,6 +110,7 @@ export const Layout = ({ children }: LayoutProps) => {
               )}
             </div>
           </div>
+        </div>
         </div>
       </header>
 
