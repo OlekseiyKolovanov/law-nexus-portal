@@ -192,7 +192,7 @@ export const ContactForm = () => {
                 </div>
                 <div>
                   <p className="font-medium">Гаряча лінія</p>
-                  <p className="text-muted-foreground">+380 (44) 255-38-69</p>
+                  <p className="text-muted-foreground">@ImKava</p>
                 </div>
               </div>
 
@@ -201,8 +201,8 @@ export const ContactForm = () => {
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-medium">Електронна пошта</p>
-                  <p className="text-muted-foreground">info@rada.gov.ua</p>
+                  <p className="font-medium">Телеграм:</p>
+                  <p className="text-muted-foreground">@ImKava</p>
                 </div>
               </div>
 
@@ -228,11 +228,11 @@ export const ContactForm = () => {
             <CardContent className="space-y-2">
               <div className="flex justify-between">
                 <span>Понеділок - П'ятниця:</span>
-                <span className="font-medium">09:00 - 18:00</span>
+                <span className="font-medium">09:00 - 21:00</span>
               </div>
               <div className="flex justify-between">
                 <span>Субота - Неділя:</span>
-                <span className="text-muted-foreground">Вихідні</span>
+                <span className="text-muted-foreground">10:00 | 18:00</span>
               </div>
             </CardContent>
           </Card>
