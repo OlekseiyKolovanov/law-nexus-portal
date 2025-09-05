@@ -152,7 +152,7 @@
     @apply hover:bg-gradient-card hover:text-accent-foreground hover:border-border/40;
     @apply hover:shadow-medium hover:-translate-y-0.5;
     @apply before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r;
-    @apply before:from-primary/8 before:via-primary-glow/12 before:to-secondary/8;
+    @apply before:from-primary/[8%] before:via-primary-glow/[12%] before:to-secondary/[8%];
     @apply before:opacity-0 before:transition-all before:duration-500;
     @apply hover:before:opacity-100;
   }
