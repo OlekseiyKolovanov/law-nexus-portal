@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/use-auth';
 import { useUserRole } from '@/hooks/use-user-role';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { MouseTrackingCard } from '@/components/MouseTrackingCard';
 import { 
   Home, 
   Users, 
@@ -51,67 +52,80 @@ export const Layout = ({ children }: LayoutProps) => {
       
       {/* Header */}
       <header className="sticky top-3 z-40 mx-4 mt-3">
-        <div className="glass-header dark:bg-gray-900/60 rounded-xl">
-        <div className="container mx-auto px-4">
-          <div className="flex h-12 items-center justify-between">
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-8 h-8 bg-primary/80 rounded-lg flex items-center justify-center shadow-soft group-hover:shadow-medium transition-all duration-300 group-hover:scale-105">
-                <Scale className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  ВРУ
-                </span>
-                <span className="text-[10px] text-muted-foreground -mt-1">
-                  Парламент
-                </span>
-              </div>
-            </Link>
-
-            <nav className="hidden lg:flex items-center space-x-2">
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`nav-item ${isActive(item.href) ? 'active' : ''}`}
-                  >
-                    <Icon className="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
-            </nav>
-
-            <div className="flex items-center space-x-2">
-              {user ? (
-                <>
-                  {(isAdmin() || canManageTenders() || canManageLegal()) && (
-                    <Link to="/admin">
-                      <Button variant="outline" size="sm" className="bg-white/20 dark:bg-white/5 backdrop-blur-sm border-white/10 dark:border-white/10 rounded-lg hover:bg-white/30 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300 h-8 px-3">
-                        <Settings className="w-3.5 h-3.5 mr-1.5" />
-                        Адмін
-                      </Button>
-                    </Link>
-                  )}
-                  <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/20 dark:bg-white/5 backdrop-blur-sm border-white/10 dark:border-white/10 rounded-lg hover:bg-white/30 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300 h-8 px-3">
-                    <LogOut className="w-3.5 h-3.5 mr-1.5" />
-                    Вийти
-                  </Button>
-                </>
-              ) : (
-                <Link to="/auth">
-                  <Button variant="outline" size="sm" className="bg-white/20 dark:bg-white/5 backdrop-blur-sm border-white/10 dark:border-white/10 rounded-lg hover:bg-white/30 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300 h-8 px-3">
-                    <LogIn className="w-3.5 h-3.5 mr-1.5" />
-                    Увійти
-                  </Button>
+        <MouseTrackingCard intensity={0.5}>
+          <div className="glass-header rounded-xl shadow-soft hover:shadow-medium transition-all duration-500">
+            <div className="container mx-auto px-6">
+              <div className="flex h-14 items-center justify-between">
+                <Link to="/" className="flex items-center space-x-3 group">
+                  <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-soft group-hover:shadow-glow transition-all duration-300 group-hover:scale-105">
+                    <Scale className="w-5 h-5 text-primary-foreground" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                      ВРУ
+                    </span>
+                    <span className="text-xs text-muted-foreground -mt-1">
+                      Парламент
+                    </span>
+                  </div>
                 </Link>
-              )}
+
+                <nav className="hidden lg:flex items-center space-x-1">
+                  {navigation.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <MouseTrackingCard key={item.name} intensity={0.3}>
+                        <Link
+                          to={item.href}
+                          className={`nav-item group flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                            isActive(item.href) 
+                              ? 'bg-primary text-primary-foreground shadow-soft' 
+                              : 'hover:bg-accent/60 hover:shadow-soft'
+                          }`}
+                        >
+                          <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                          <span>{item.name}</span>
+                        </Link>
+                      </MouseTrackingCard>
+                    );
+                  })}
+                </nav>
+
+                <div className="flex items-center space-x-3">
+                  {user ? (
+                    <>
+                      {(isAdmin() || canManageTenders() || canManageLegal()) && (
+                        <MouseTrackingCard intensity={0.3}>
+                          <Link to="/admin">
+                            <Button variant="outline" size="sm" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-border/30 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                              <Settings className="w-4 h-4 mr-2" />
+                              Адмін
+                            </Button>
+                          </Link>
+                        </MouseTrackingCard>
+                      )}
+                      <MouseTrackingCard intensity={0.3}>
+                        <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-border/30 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                          <LogOut className="w-4 h-4 mr-2" />
+                          Вийти
+                        </Button>
+                      </MouseTrackingCard>
+                    </>
+                  ) : (
+                    <MouseTrackingCard intensity={0.3}>
+                      <Link to="/auth">
+                        <Button variant="outline" size="sm" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-border/30 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                          <LogIn className="w-4 h-4 mr-2" />
+                          Увійти
+                        </Button>
+                      </Link>
+                    </MouseTrackingCard>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        </div>
+        </MouseTrackingCard>
       </header>
 
       {/* Main Content */}
@@ -157,15 +171,16 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Швидкі посилання</h3>
               <div className="grid grid-cols-2 gap-2 text-sm">
-                {navigation.slice(0, 4).map((item) => (
-                  <Link 
-                    key={item.name}
-                    to={item.href} 
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-1"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            {navigation.slice(0, 4).map((item) => (
+              <MouseTrackingCard key={item.name} intensity={0.2}>
+                <Link 
+                  to={item.href} 
+                  className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-1 hover:shadow-soft px-2 py-1 rounded-lg"
+                >
+                  {item.name}
+                </Link>
+              </MouseTrackingCard>
+            ))}
               </div>
             </div>
 
@@ -176,11 +191,13 @@ export const Layout = ({ children }: LayoutProps) => {
                 Офіційний веб-портал Верховної Ради України. 
                 Актуальна інформація про законодавчу діяльність та парламентські процедури.
               </p>
-              <Link to="/contact" className="inline-block">
-                <Button variant="outline" size="sm" className="soft-button">
-                  Зв'язатися з нами
-                </Button>
-              </Link>
+              <MouseTrackingCard intensity={0.3}>
+                <Link to="/contact" className="inline-block">
+                  <Button variant="outline" size="sm" className="bg-gradient-glass border-border/30 rounded-xl hover:shadow-medium transition-all duration-300">
+                    Зв'язатися з нами
+                  </Button>
+                </Link>
+              </MouseTrackingCard>
             </div>
           </div>
           
