@@ -69,6 +69,7 @@ export default {
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-card': 'var(--gradient-card)',
         'gradient-glass': 'var(--gradient-glass)',
+        'gradient-glass-header': 'var(--gradient-glass-header)',
         'gradient-icon': 'var(--gradient-icon)',
       },
       boxShadow: {
