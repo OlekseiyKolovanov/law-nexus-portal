@@ -191,7 +191,7 @@ export const ContactForm = () => {
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-medium">Гаряча лінія</p>
+                  <p className="font-medium">Телеграм</p>
                   <p className="text-muted-foreground">@ImKava</p>
                 </div>
               </div>
@@ -201,8 +201,8 @@ export const ContactForm = () => {
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-medium">Телеграм:</p>
-                  <p className="text-muted-foreground">@ImKava</p>
+                  <p className="font-medium">Власник сайту</p>
+                  <p className="text-muted-foreground">Річард Скоропадський</p>
                 </div>
               </div>
 

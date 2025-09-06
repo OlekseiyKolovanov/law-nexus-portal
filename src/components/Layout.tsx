@@ -50,25 +50,25 @@ export const Layout = ({ children }: LayoutProps) => {
       <ThemeToggle />
       
       {/* Header */}
-      <header className="sticky top-2 z-40 mx-4 mt-2">
-        <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-large">
+      <header className="sticky top-3 z-40 mx-4 mt-3">
+        <div className="glass-header dark:bg-gray-900/60 rounded-xl">
         <div className="container mx-auto px-4">
-          <div className="flex h-14 items-center justify-between">
+          <div className="flex h-12 items-center justify-between">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 bg-primary/80 rounded-xl flex items-center justify-center shadow-soft group-hover:shadow-medium transition-all duration-300 group-hover:scale-105">
-                <Scale className="w-6 h-6 text-primary-foreground" />
+              <div className="w-8 h-8 bg-primary/80 rounded-lg flex items-center justify-center shadow-soft group-hover:shadow-medium transition-all duration-300 group-hover:scale-105">
+                <Scale className="w-4 h-4 text-primary-foreground" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                <span className="text-lg font-bold bg-gradient-primary bg-clip-text text-transparent">
                   ВРУ
                 </span>
-                <span className="text-xs text-muted-foreground -mt-1">
+                <span className="text-[10px] text-muted-foreground -mt-1">
                   Парламент
                 </span>
               </div>
             </Link>
 
-            <nav className="hidden lg:flex items-center space-x-3">
+            <nav className="hidden lg:flex items-center space-x-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -77,33 +77,33 @@ export const Layout = ({ children }: LayoutProps) => {
                     to={item.href}
                     className={`nav-item ${isActive(item.href) ? 'active' : ''}`}
                   >
-                    <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                    <Icon className="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" />
                     <span>{item.name}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
               {user ? (
                 <>
                   {(isAdmin() || canManageTenders() || canManageLegal()) && (
                     <Link to="/admin">
-                      <Button variant="outline" size="sm" className="bg-white/40 dark:bg-white/5 backdrop-blur-sm border-white/20 dark:border-white/10 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300">
-                        <Settings className="w-4 h-4 mr-2" />
+                      <Button variant="outline" size="sm" className="bg-white/20 dark:bg-white/5 backdrop-blur-sm border-white/10 dark:border-white/10 rounded-lg hover:bg-white/30 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300 h-8 px-3">
+                        <Settings className="w-3.5 h-3.5 mr-1.5" />
                         Адмін
                       </Button>
                     </Link>
                   )}
-                  <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/40 dark:bg-white/5 backdrop-blur-sm border-white/20 dark:border-white/10 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300">
-                    <LogOut className="w-4 h-4 mr-2" />
+                  <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/20 dark:bg-white/5 backdrop-blur-sm border-white/10 dark:border-white/10 rounded-lg hover:bg-white/30 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300 h-8 px-3">
+                    <LogOut className="w-3.5 h-3.5 mr-1.5" />
                     Вийти
                   </Button>
                 </>
               ) : (
                 <Link to="/auth">
-                  <Button variant="outline" size="sm" className="bg-white/40 dark:bg-white/5 backdrop-blur-sm border-white/20 dark:border-white/10 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300">
-                    <LogIn className="w-4 h-4 mr-2" />
+                  <Button variant="outline" size="sm" className="bg-white/20 dark:bg-white/5 backdrop-blur-sm border-white/10 dark:border-white/10 rounded-lg hover:bg-white/30 dark:hover:bg-white/10 hover:shadow-soft transition-all duration-300 h-8 px-3">
+                    <LogIn className="w-3.5 h-3.5 mr-1.5" />
                     Увійти
                   </Button>
                 </Link>
@@ -136,13 +136,13 @@ export const Layout = ({ children }: LayoutProps) => {
                   <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
                     <Phone className="w-3 h-3 text-primary" />
                   </div>
-                  <span>+380 44 255-3636</span>
+                  <span>Телеграм: @ImKava</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
                     <Mail className="w-3 h-3 text-primary" />
                   </div>
-                  <span>info@rada.gov.ua</span>
+                  <span>Власник: Річард Скоропадський</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
