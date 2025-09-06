@@ -77,6 +77,7 @@ export default {
         'large': 'var(--shadow-large)',
         'glow': 'var(--shadow-glow)',
         'inner': 'var(--shadow-inner)',
+        'glass': 'var(--shadow-glass)',
       },
       borderRadius: {
         lg: 'var(--radius)',
