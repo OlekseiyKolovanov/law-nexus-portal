@@ -101,13 +101,13 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Enhanced dark theme gradients with transparency */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)/0.9), hsl(var(--primary-glow)/0.7));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)/0.95) 0%, hsl(var(--card)/0.6) 50%, hsl(var(--primary)/0.03) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)/0.7), hsl(var(--card)/0.4), hsl(var(--primary)/0.02));
-    --gradient-glass: linear-gradient(145deg, hsl(var(--card)/0.5), hsl(var(--card)/0.2));
-    --gradient-glass-header: linear-gradient(145deg, hsl(var(--card)/0.6), hsl(var(--card)/0.3));
-    --gradient-icon: linear-gradient(135deg, hsl(var(--primary)/0.8), hsl(var(--primary-glow)/0.6));
+    /* Enhanced dark theme gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)/0.8) 50%, hsl(var(--primary)/0.05) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card)/0.9), hsl(var(--primary)/0.03));
+    --gradient-glass: linear-gradient(145deg, hsl(var(--card)/0.9), hsl(var(--card)/0.7));
+    --gradient-glass-header: linear-gradient(145deg, hsl(var(--card)/0.95), hsl(var(--card)/0.8));
+    --gradient-icon: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     
     /* Enhanced dark theme shadows */
     --shadow-soft: 0 1px 3px hsl(var(--background)/0.6), 0 1px 2px hsl(var(--background)/0.4), inset 0 1px 0 hsl(var(--card)/0.15);

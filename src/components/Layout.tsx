@@ -53,7 +53,7 @@ export const Layout = ({ children }: LayoutProps) => {
       {/* Header */}
       <header className="sticky top-3 z-40 mx-4 mt-3">
         <MouseTrackingCard intensity={0.5}>
-          <div className="glass-header rounded-xl shadow-soft hover:shadow-medium transition-all duration-500">
+          <div className="glass-header rounded-xl shadow-soft hover:shadow-medium transition-all duration-500 border border-border/30">
             <div className="container mx-auto px-6">
               <div className="flex h-14 items-center justify-between">
                 <Link to="/" className="flex items-center space-x-3 group">
@@ -61,7 +61,7 @@ export const Layout = ({ children }: LayoutProps) => {
                     <Scale className="w-5 h-5 text-primary-foreground" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                    <span className="text-xl font-bold text-foreground">
                       ВРУ
                     </span>
                     <span className="text-xs text-muted-foreground -mt-1">
@@ -77,10 +77,10 @@ export const Layout = ({ children }: LayoutProps) => {
                       <MouseTrackingCard key={item.name} intensity={0.3}>
                         <Link
                           to={item.href}
-                          className={`nav-item group flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                          className={`group flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border ${
                             isActive(item.href) 
-                              ? 'bg-primary text-primary-foreground shadow-soft' 
-                              : 'hover:bg-accent/60 hover:shadow-soft'
+                              ? 'bg-primary text-primary-foreground shadow-soft border-primary/20' 
+                              : 'bg-card/50 dark:bg-card/70 text-foreground border-border/20 hover:bg-accent/80 dark:hover:bg-accent/60 hover:shadow-soft hover:border-border/40'
                           }`}
                         >
                           <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
@@ -97,7 +97,7 @@ export const Layout = ({ children }: LayoutProps) => {
                       {(isAdmin() || canManageTenders() || canManageLegal()) && (
                         <MouseTrackingCard intensity={0.3}>
                           <Link to="/admin">
-                            <Button variant="outline" size="sm" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-border/30 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                            <Button variant="outline" size="sm" className="bg-card/70 dark:bg-card/80 text-foreground border-border/30 rounded-xl hover:bg-accent dark:hover:bg-accent/80 hover:shadow-medium transition-all duration-300 h-9 px-4">
                               <Settings className="w-4 h-4 mr-2" />
                               Адмін
                             </Button>
@@ -105,7 +105,7 @@ export const Layout = ({ children }: LayoutProps) => {
                         </MouseTrackingCard>
                       )}
                       <MouseTrackingCard intensity={0.3}>
-                        <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-border/30 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                        <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-card/70 dark:bg-card/80 text-foreground border-border/30 rounded-xl hover:bg-accent dark:hover:bg-accent/80 hover:shadow-medium transition-all duration-300 h-9 px-4">
                           <LogOut className="w-4 h-4 mr-2" />
                           Вийти
                         </Button>
@@ -114,7 +114,7 @@ export const Layout = ({ children }: LayoutProps) => {
                   ) : (
                     <MouseTrackingCard intensity={0.3}>
                       <Link to="/auth">
-                        <Button variant="outline" size="sm" className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-border/30 rounded-xl hover:bg-white dark:hover:bg-gray-700 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                        <Button variant="outline" size="sm" className="bg-card/70 dark:bg-card/80 text-foreground border-border/30 rounded-xl hover:bg-accent dark:hover:bg-accent/80 hover:shadow-medium transition-all duration-300 h-9 px-4">
                           <LogIn className="w-4 h-4 mr-2" />
                           Увійти
                         </Button>
