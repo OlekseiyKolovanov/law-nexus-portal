@@ -13,6 +13,7 @@ import Tenders from "./pages/Tenders";
 import Lawyers from "./pages/Lawyers";
 import Enterprises from "./pages/Enterprises";
 import Contact from "./pages/Contact";
+import Voting from "./pages/Voting";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/leadership" element={<Leadership />} />
+            <Route path="/voting" element={<Voting />} />
             <Route path="/laws" element={<Laws />} />
             <Route path="/legal-school" element={<LegalSchool />} />
             <Route path="/tenders" element={<Tenders />} />

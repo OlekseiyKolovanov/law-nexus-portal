@@ -3,18 +3,31 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Plus, Loader2 } from 'lucide-react';
+import { Shield, Plus, Loader2, Trash2, Users } from 'lucide-react';
+
+interface UserRole {
+  id: string;
+  user_id: string;
+  role: string;
+  created_at: string;
+  profiles?: {
+    nickname?: string;
+    first_name?: string;
+    last_name?: string;
+  } | null;
+}
 
 export const AdminUserRoles = () => {
   const { toast } = useToast();
-  const [userRoles, setUserRoles] = useState<any[]>([]);
+  const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
-    user_email: '',
+    user_nickname: '',
     role: 'admin',
   });
   const [dialogOpen, setDialogOpen] = useState(false);

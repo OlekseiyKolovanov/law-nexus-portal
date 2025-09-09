@@ -11,6 +11,7 @@ import { AdminLawyers } from '@/components/admin/AdminLawyers';
 import { AdminEnterprises } from '@/components/admin/AdminEnterprises';
 import { AdminFeedback } from '@/components/admin/AdminFeedback';
 import { AdminStatistics } from '@/components/admin/AdminStatistics';
+import { AdminVoting } from '@/components/admin/AdminVoting';
 import { AdminUserRoles } from '@/components/admin/AdminUserRoles';
 import { 
   Settings, 
@@ -22,6 +23,7 @@ import {
   Building2, 
   MessageSquare,
   BarChart3,
+  Vote,
   Shield
 } from 'lucide-react';
 
@@ -77,6 +79,11 @@ const Admin = () => {
                   <span className="hidden sm:inline">Статистика</span>
                 </TabsTrigger>
                 
+                <TabsTrigger value="voting" className="flex items-center gap-2">
+                  <Scale className="w-4 h-4" />
+                  <span className="hidden sm:inline">Голосування</span>
+                </TabsTrigger>
+
                 {(isAdmin() || canManageLegal()) && (
                   <>
                     <TabsTrigger value="leadership" className="flex items-center gap-2">
@@ -127,6 +134,10 @@ const Admin = () => {
               <div className="p-6">
                 <TabsContent value="statistics">
                   <AdminStatistics />
+                </TabsContent>
+
+                <TabsContent value="voting">
+                  <AdminVoting />
                 </TabsContent>
 
                 {(isAdmin() || canManageLegal()) && (

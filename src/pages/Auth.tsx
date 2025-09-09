@@ -1,21 +1,52 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import { Scale } from 'lucide-react';
+
+const signUpSchema = z.object({
+  email: z.string().email('Невірний формат email'),
+  password: z.string().min(6, 'Пароль має містити мінімум 6 символів'),
+  nickname: z.string().min(2, 'Нік має містити мінімум 2 символи').max(20, 'Нік не може бути довшим за 20 символів'),
+});
+
+const signInSchema = z.object({
+  email: z.string().email('Невірний формат email'),
+  password: z.string().min(1, 'Введіть пароль'),
+});
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  const signUpForm = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      nickname: '',
+    },
+  });
+
+  const signInForm = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   // Redirect if already logged in
   if (user) {
@@ -23,47 +54,81 @@ const Auth = () => {
     return null;
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!email || !password) {
-      toast({
-        title: "Помилка",
-        description: "Будь ласка, заповніть всі поля",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const handleSignUp = async (values: z.infer<typeof signUpSchema>) => {
     setLoading(true);
 
     try {
-      let result;
-      if (isSignUp) {
-        result = await signUp(email, password);
-        if (!result.error) {
-          toast({
-            title: "Реєстрація успішна",
-            description: "Перевірте свою електронну пошту для підтвердження",
-          });
-        }
-      } else {
-        result = await signIn(email, password);
-        if (!result.error) {
-          toast({
-            title: "Вхід успішний",
-            description: "Ласкаво просимо!",
-          });
-          navigate('/');
-        }
+      // Check if nickname is already taken
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('nickname', values.nickname)
+        .single();
+
+      if (existingProfile) {
+        toast({
+          title: "Помилка",
+          description: "Цей нік вже зайнятий",
+          variant: "destructive",
+        });
+        return;
       }
 
+      const result = await signUp(values.email, values.password);
+      
       if (result.error) {
         toast({
           title: "Помилка",
           description: result.error.message,
           variant: "destructive",
         });
+      } else {
+        // Create profile with nickname
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          await supabase
+            .from('profiles')
+            .insert({
+              user_id: user.id,
+              nickname: values.nickname,
+            });
+        }
+
+        toast({
+          title: "Реєстрація успішна",
+          description: "Ласкаво просимо!",
+        });
+        navigate('/');
+      }
+    } catch (error) {
+      toast({
+        title: "Помилка",
+        description: "Щось пішло не так. Спробуйте ще раз.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignIn = async (values: z.infer<typeof signInSchema>) => {
+    setLoading(true);
+
+    try {
+      const result = await signIn(values.email, values.password);
+      
+      if (result.error) {
+        toast({
+          title: "Помилка",
+          description: result.error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Вхід успішний",
+          description: "Ласкаво просимо!",
+        });
+        navigate('/');
       }
     } catch (error) {
       toast({
@@ -94,39 +159,123 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Електронна пошта</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="example@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-                className="transition-all duration-300 focus:shadow-medium rounded-xl bg-gradient-glass backdrop-blur-sm border-border/30"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Пароль</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-                className="transition-all duration-300 focus:shadow-medium rounded-xl bg-gradient-glass backdrop-blur-sm border-border/30"
-              />
-            </div>
-            <Button 
-              type="submit" 
-              className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-500 rounded-2xl hover:scale-105 hover:-translate-y-1" 
-              disabled={loading}
-            >
-              {loading ? 'Завантаження...' : (isSignUp ? 'Зареєструватися' : 'Увійти')}
-            </Button>
-          </form>
+          {isSignUp ? (
+            <Form {...signUpForm}>
+              <form onSubmit={signUpForm.handleSubmit(handleSignUp)} className="space-y-4">
+                <FormField
+                  control={signUpForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Електронна пошта</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="example@email.com"
+                          {...field}
+                          disabled={loading}
+                          className="transition-all duration-300 focus:shadow-medium rounded-xl"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={signUpForm.control}
+                  name="nickname"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Нік</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Ваш унікальний нік"
+                          {...field}
+                          disabled={loading}
+                          className="transition-all duration-300 focus:shadow-medium rounded-xl"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={signUpForm.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Пароль</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="••••••••"
+                          {...field}
+                          disabled={loading}
+                          className="transition-all duration-300 focus:shadow-medium rounded-xl"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-500 rounded-2xl hover:scale-105" 
+                  disabled={loading}
+                >
+                  {loading ? 'Завантаження...' : 'Зареєструватися'}
+                </Button>
+              </form>
+            </Form>
+          ) : (
+            <Form {...signInForm}>
+              <form onSubmit={signInForm.handleSubmit(handleSignIn)} className="space-y-4">
+                <FormField
+                  control={signInForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Електронна пошта</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="example@email.com"
+                          {...field}
+                          disabled={loading}
+                          className="transition-all duration-300 focus:shadow-medium rounded-xl"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={signInForm.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Пароль</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="••••••••"
+                          {...field}
+                          disabled={loading}
+                          className="transition-all duration-300 focus:shadow-medium rounded-xl"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-500 rounded-2xl hover:scale-105" 
+                  disabled={loading}
+                >
+                  {loading ? 'Завантаження...' : 'Увійти'}
+                </Button>
+              </form>
+            </Form>
+          )}
           
           <div className="mt-6 text-center">
             <button

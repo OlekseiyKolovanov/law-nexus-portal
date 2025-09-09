@@ -33,10 +33,11 @@ export const Layout = ({ children }: LayoutProps) => {
   const navigation = [
     { name: 'Головна', href: '/', icon: Home },
     { name: 'Керівництво', href: '/leadership', icon: Users },
+    { name: 'Голосування', href: '/voting', icon: Scale },
     { name: 'Законодавча база', href: '/laws', icon: FileText },
     { name: 'Школа права', href: '/legal-school', icon: GraduationCap },
     { name: 'Тендери', href: '/tenders', icon: Briefcase },
-    { name: 'Реєстр адвокатів', href: '/lawyers', icon: Scale },
+    { name: 'Реєстр адвокатів', href: '/lawyers', icon: Users },
     { name: 'Підприємства', href: '/enterprises', icon: Building2 },
   ];
 
@@ -53,18 +54,18 @@ export const Layout = ({ children }: LayoutProps) => {
       {/* Header */}
       <header className="sticky top-3 z-40 mx-4 mt-3">
         <MouseTrackingCard intensity={0.5}>
-          <div className="glass-header rounded-xl shadow-soft hover:shadow-medium transition-all duration-500 border border-border/30">
+          <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/40 dark:border-gray-700/40 transition-all duration-500">
             <div className="container mx-auto px-6">
-              <div className="flex h-14 items-center justify-between">
+              <div className="flex h-12 items-center justify-between">
                 <Link to="/" className="flex items-center space-x-3 group">
-                  <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-soft group-hover:shadow-glow transition-all duration-300 group-hover:scale-105">
-                    <Scale className="w-5 h-5 text-primary-foreground" />
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110">
+                    <Scale className="w-4 h-4 text-white" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xl font-bold text-foreground">
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">
                       ВРУ
                     </span>
-                    <span className="text-xs text-muted-foreground -mt-1">
+                    <span className="text-xs text-gray-500 dark:text-gray-400 -mt-1">
                       Парламент
                     </span>
                   </div>
@@ -77,13 +78,13 @@ export const Layout = ({ children }: LayoutProps) => {
                       <MouseTrackingCard key={item.name} intensity={0.3}>
                         <Link
                           to={item.href}
-                          className={`group flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border ${
+                          className={`nav-item group flex items-center space-x-2 ${
                             isActive(item.href) 
-                              ? 'bg-primary text-primary-foreground shadow-soft border-primary/20' 
-                              : 'bg-card/50 dark:bg-card/70 text-foreground border-border/20 hover:bg-accent/80 dark:hover:bg-accent/60 hover:shadow-soft hover:border-border/40'
+                              ? 'active' 
+                              : ''
                           }`}
                         >
-                          <Icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                          <Icon className="w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110" />
                           <span>{item.name}</span>
                         </Link>
                       </MouseTrackingCard>
@@ -106,7 +107,8 @@ export const Layout = ({ children }: LayoutProps) => {
                       )}
                       <MouseTrackingCard intensity={0.3}>
                         <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-card/70 dark:bg-card/80 text-foreground border-border/30 rounded-xl hover:bg-accent dark:hover:bg-accent/80 hover:shadow-medium transition-all duration-300 h-9 px-4">
-                          <LogOut className="w-4 h-4 mr-2" />
+                        <Button onClick={handleSignOut} variant="outline" size="sm" className="bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 border-gray-200/50 dark:border-gray-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-gray-700/80 hover:shadow-md transition-all duration-300 h-8 px-3">
+                          <Button variant="outline" size="sm" className="bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 border-gray-200/50 dark:border-gray-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-gray-700/80 hover:shadow-md transition-all duration-300 h-8 px-3">
                           Вийти
                         </Button>
                       </MouseTrackingCard>
@@ -114,7 +116,7 @@ export const Layout = ({ children }: LayoutProps) => {
                   ) : (
                     <MouseTrackingCard intensity={0.3}>
                       <Link to="/auth">
-                        <Button variant="outline" size="sm" className="bg-card/70 dark:bg-card/80 text-foreground border-border/30 rounded-xl hover:bg-accent dark:hover:bg-accent/80 hover:shadow-medium transition-all duration-300 h-9 px-4">
+                        <Button variant="outline" size="sm" className="bg-white/60 dark:bg-gray-800/60 text-gray-700 dark:text-gray-200 border-gray-200/50 dark:border-gray-700/50 rounded-xl hover:bg-white/80 dark:hover:bg-gray-700/80 hover:shadow-md transition-all duration-300 h-8 px-3">
                           <LogIn className="w-4 h-4 mr-2" />
                           Увійти
                         </Button>
@@ -150,13 +152,13 @@ export const Layout = ({ children }: LayoutProps) => {
                   <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
                     <Phone className="w-3 h-3 text-primary" />
                   </div>
-                  <span>Телеграм: @ImKava</span>
+                  <span>@ImKava</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
                     <Mail className="w-3 h-3 text-primary" />
                   </div>
-                  <span>Власник: Річард Скоропадський</span>
+                  <span>Річард Скоропадський</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-gradient-glass rounded-lg flex items-center justify-center">
