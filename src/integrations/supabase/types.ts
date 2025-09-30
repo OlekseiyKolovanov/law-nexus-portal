@@ -396,6 +396,75 @@ export type Database = {
         }
         Relationships: []
       }
+      votes: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string
+          vote_type: Database["public"]["Enums"]["vote_type"]
+          voting_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id: string
+          vote_type: Database["public"]["Enums"]["vote_type"]
+          voting_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string
+          vote_type?: Database["public"]["Enums"]["vote_type"]
+          voting_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_voting_id_fkey"
+            columns: ["voting_id"]
+            isOneToOne: false
+            referencedRelation: "votings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      votings: {
+        Row: {
+          additional_info: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          law_link: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          additional_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          law_link: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          additional_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          law_link?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -410,7 +479,8 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "license_manager" | "law_manager"
+      app_role: "admin" | "license_manager" | "law_manager" | "deputy"
+      vote_type: "for" | "against" | "abstain"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -538,7 +608,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "license_manager", "law_manager"],
+      app_role: ["admin", "license_manager", "law_manager", "deputy"],
+      vote_type: ["for", "against", "abstain"],
     },
   },
 } as const
