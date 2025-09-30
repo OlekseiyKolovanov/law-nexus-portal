@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Scale, Plus, Edit, Trash2, Loader2, ExternalLink, ThumbsUp, ThumbsDown, Minus, BarChart3 } from 'lucide-react';
+import { Scale, Plus, CreditCard as Edit, Trash2, Loader as Loader2, ExternalLink, ThumbsUp, ThumbsDown, Minus, ChartBar as BarChart3 } from 'lucide-react';
 
 interface Voting {
   id: string;
