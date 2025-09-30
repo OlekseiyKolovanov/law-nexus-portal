@@ -3,19 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from './ThemeToggle';
 import { useAuth } from '../hooks/use-auth';
 import { useUserRole } from '../hooks/use-user-role';
-import { 
-  Home, 
-  Scale, 
-  Users, 
-  Building2, 
-  GraduationCap, 
-  FileText, 
-  Vote,
-  Phone,
-  Settings,
-  LogOut,
-  User
-} from 'lucide-react';
+import { Chrome as Home, Scale, Users, Building2, GraduationCap, FileText, Vote, Phone, Settings, LogOut, User } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
