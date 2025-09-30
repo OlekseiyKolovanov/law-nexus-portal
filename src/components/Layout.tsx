@@ -16,12 +16,13 @@ export function Layout({ children }: LayoutProps) {
 
   const navigation = [
     { name: 'Головна', href: '/', icon: Home },
+    { name: 'Керівництво', href: '/leadership', icon: Users },
+    { name: 'Голосування', href: '/voting', icon: Vote },
     { name: 'Закони', href: '/laws', icon: Scale },
-    { name: 'Юристи', href: '/lawyers', icon: Users },
-    { name: 'Підприємства', href: '/enterprises', icon: Building2 },
     { name: 'Юридична школа', href: '/legal-school', icon: GraduationCap },
     { name: 'Тендери', href: '/tenders', icon: FileText },
-    ...(role === 'deputy' ? [{ name: 'Голосування', href: '/voting', icon: Vote }] : []),
+    { name: 'Адвокати', href: '/lawyers', icon: Scale },
+    { name: 'Підприємства', href: '/enterprises', icon: Building2 },
     { name: 'Контакти', href: '/contact', icon: Phone },
   ];
 
@@ -39,7 +40,7 @@ export function Layout({ children }: LayoutProps) {
                 <Scale className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                ЮрПортал
+                Верховна Рада України
               </span>
             </Link>
 
