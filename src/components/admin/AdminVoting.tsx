@@ -119,7 +119,7 @@ export const AdminVoting = () => {
       } else {
         const { error } = await supabase
           .from('votings')
-          .insert([formData]);
+          .insert(formData);
 
         if (error) throw error;
 

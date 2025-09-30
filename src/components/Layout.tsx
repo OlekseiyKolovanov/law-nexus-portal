@@ -118,7 +118,7 @@ export function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <p className="text-gray-600 dark:text-gray-400 mb-2">
-              © 2024 ЮрПортал. Всі права захищені.
+              © 2024 Верховна Рада України. Всі права захищені.
             </p>
             <div className="flex justify-center items-center space-x-4 text-sm text-gray-500 dark:text-gray-500">
               <span>Власник: Річард Скоропадський</span>
