@@ -14,8 +14,7 @@ import { Scale, Plus, CreditCard as Edit, Trash2, Loader as Loader2, ExternalLin
 interface Voting {
   id: string;
   title: string;
-  law_link: string;
-  additional_info?: string;
+  link: string | null;
   is_active: boolean;
   created_at: string;
 }
@@ -35,8 +34,7 @@ export const AdminVoting = () => {
   const [editingVoting, setEditingVoting] = useState<Voting | null>(null);
   const [formData, setFormData] = useState({
     title: '',
-    law_link: '',
-    additional_info: '',
+    link: '',
     is_active: true,
   });
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -77,14 +75,14 @@ export const AdminVoting = () => {
     try {
       const { data: votes, error } = await supabase
         .from('votes')
-        .select('vote_type')
+        .select('vote')
         .eq('voting_id', votingId);
 
       if (error) throw error;
 
-      const forCount = votes?.filter(v => v.vote_type === 'for').length || 0;
-      const againstCount = votes?.filter(v => v.vote_type === 'against').length || 0;
-      const abstainCount = votes?.filter(v => v.vote_type === 'abstain').length || 0;
+      const forCount = votes?.filter(v => v.vote === 'for').length || 0;
+      const againstCount = votes?.filter(v => v.vote === 'against').length || 0;
+      const abstainCount = votes?.filter(v => v.vote === 'abstain').length || 0;
 
       setVotingStats(prev => ({
         ...prev,

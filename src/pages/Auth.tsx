@@ -89,7 +89,7 @@ const Auth = () => {
           await supabase
             .from('profiles')
             .insert({
-              user_id: user.id,
+              id: user.id,
               nickname: values.nickname,
             });
         }
