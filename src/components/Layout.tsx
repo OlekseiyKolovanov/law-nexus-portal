@@ -12,7 +12,7 @@ interface LayoutProps {
 export function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const { user, signOut } = useAuth();
-  const { role } = useUserRole();
+  const { isAdmin, loading: roleLoading } = useUserRole();
 
   const navigation = [
     { name: 'Головна', href: '/', icon: Home },
@@ -71,7 +71,7 @@ export function Layout({ children }: LayoutProps) {
               
               {user ? (
                 <div className="flex items-center space-x-2">
-                  {role === 'admin' && (
+                  {!roleLoading && isAdmin() && (
                     <Link
                       to="/admin"
                       className="nav-item flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"

@@ -13,8 +13,7 @@ import { Scale, ThumbsUp, ThumbsDown, Minus, ExternalLink, Users, BarChart3 } fr
 interface Voting {
   id: string;
   title: string;
-  law_link: string;
-  additional_info?: string;
+  link: string | null;
   is_active: boolean;
   created_at: string;
 }
@@ -23,7 +22,7 @@ interface Vote {
   id: string;
   voting_id: string;
   user_id: string;
-  vote_type: 'for' | 'against' | 'abstain';
+  vote: 'for' | 'against' | 'abstain';
   created_at: string;
 }
 
@@ -82,15 +81,15 @@ const Voting = () => {
     try {
       const { data: votes, error } = await supabase
         .from('votes')
-        .select('vote_type, user_id')
+        .select('vote, user_id')
         .eq('voting_id', votingId);
 
       if (error) throw error;
 
-      const forCount = votes?.filter(v => v.vote_type === 'for').length || 0;
-      const againstCount = votes?.filter(v => v.vote_type === 'against').length || 0;
-      const abstainCount = votes?.filter(v => v.vote_type === 'abstain').length || 0;
-      const userVote = votes?.find(v => v.user_id === user?.id)?.vote_type;
+      const forCount = votes?.filter(v => v.vote === 'for').length || 0;
+      const againstCount = votes?.filter(v => v.vote === 'against').length || 0;
+      const abstainCount = votes?.filter(v => v.vote === 'abstain').length || 0;
+      const userVote = votes?.find(v => v.user_id === user?.id)?.vote;
 
       setVotingStats(prev => ({
         ...prev,
@@ -99,7 +98,7 @@ const Voting = () => {
           against_count: againstCount,
           abstain_count: abstainCount,
           total_votes: forCount + againstCount + abstainCount,
-          user_vote,
+          user_vote: userVote,
         }
       }));
     } catch (error) {
@@ -125,7 +124,7 @@ const Voting = () => {
         .upsert({
           voting_id: votingId,
           user_id: user.id,
-          vote_type: voteType,
+          vote: voteType,
         });
 
       if (error) throw error;
@@ -243,14 +242,9 @@ const Voting = () => {
                             <Users className="w-4 h-4" />
                             Голосів: {totalVotes}
                           </CardDescription>
-                          {voting.additional_info && (
-                            <p className="text-sm text-muted-foreground mb-4">
-                              {voting.additional_info}
-                            </p>
-                          )}
                         </div>
                         <Button asChild variant="outline" size="sm" className="ml-4 shrink-0">
-                          <a href={voting.law_link} target="_blank" rel="noopener noreferrer">
+                          <a href={voting.link} target="_blank" rel="noopener noreferrer">
                             <ExternalLink className="w-4 h-4 mr-2" />
                             Переглянути закон
                           </a>

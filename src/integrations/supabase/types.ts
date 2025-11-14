@@ -14,16 +14,441 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      enterprises: {
+        Row: {
+          business_type: string | null
+          contact_info: string | null
+          created_at: string
+          id: string
+          is_active: boolean | null
+          name: string
+          owner_name: string | null
+          registration_number: string | null
+        }
+        Insert: {
+          business_type?: string | null
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          owner_name?: string | null
+          registration_number?: string | null
+        }
+        Update: {
+          business_type?: string | null
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          owner_name?: string | null
+          registration_number?: string | null
+        }
+        Relationships: []
+      }
+      feedback: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      laws: {
+        Row: {
+          created_at: string
+          id: string
+          link: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          link: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          link?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      lawyers_registry: {
+        Row: {
+          contact_info: string | null
+          created_at: string
+          id: string
+          is_active: boolean | null
+          license_number: string
+          name: string
+          specialization: string | null
+        }
+        Insert: {
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          license_number: string
+          name: string
+          specialization?: string | null
+        }
+        Update: {
+          contact_info?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          license_number?: string
+          name?: string
+          specialization?: string | null
+        }
+        Relationships: []
+      }
+      leadership: {
+        Row: {
+          bio: string | null
+          created_at: string
+          id: string
+          name: string
+          order_index: number | null
+          photo_url: string | null
+          position: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          order_index?: number | null
+          photo_url?: string | null
+          position: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          order_index?: number | null
+          photo_url?: string | null
+          position?: string
+        }
+        Relationships: []
+      }
+      legal_school: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          link: string | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          first_name: string | null
+          id: string
+          last_name: string | null
+          nickname: string | null
+        }
+        Insert: {
+          created_at?: string
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          nickname?: string | null
+        }
+        Update: {
+          created_at?: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          nickname?: string | null
+        }
+        Relationships: []
+      }
+      statistics: {
+        Row: {
+          active_tenders_count: number | null
+          id: string
+          laws_count: number | null
+          school_topics_count: number | null
+          staff_count: number | null
+          updated_at: string
+        }
+        Insert: {
+          active_tenders_count?: number | null
+          id?: string
+          laws_count?: number | null
+          school_topics_count?: number | null
+          staff_count?: number | null
+          updated_at?: string
+        }
+        Update: {
+          active_tenders_count?: number | null
+          id?: string
+          laws_count?: number | null
+          school_topics_count?: number | null
+          staff_count?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tender_form_questions: {
+        Row: {
+          created_at: string
+          id: string
+          is_required: boolean | null
+          order_index: number | null
+          question_text: string
+          question_type: string
+          tender_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_required?: boolean | null
+          order_index?: number | null
+          question_text: string
+          question_type: string
+          tender_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_required?: boolean | null
+          order_index?: number | null
+          question_text?: string
+          question_type?: string
+          tender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tender_form_questions_tender_id_fkey"
+            columns: ["tender_id"]
+            isOneToOne: false
+            referencedRelation: "tenders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tender_form_responses: {
+        Row: {
+          created_at: string
+          id: string
+          question_id: string
+          response_text: string
+          tender_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          question_id: string
+          response_text: string
+          tender_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          question_id?: string
+          response_text?: string
+          tender_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tender_form_responses_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "tender_form_questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tender_form_responses_tender_id_fkey"
+            columns: ["tender_id"]
+            isOneToOne: false
+            referencedRelation: "tenders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tender_form_responses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tenders: {
+        Row: {
+          content: string
+          created_at: string
+          has_form: boolean | null
+          id: string
+          is_active: boolean | null
+          title: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          has_form?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          title: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          has_form?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          title?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      votes: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string
+          vote: Database["public"]["Enums"]["vote_type"]
+          voting_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id: string
+          vote: Database["public"]["Enums"]["vote_type"]
+          voting_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string
+          vote?: Database["public"]["Enums"]["vote_type"]
+          voting_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "votes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "votes_voting_id_fkey"
+            columns: ["voting_id"]
+            isOneToOne: false
+            referencedRelation: "votings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      votings: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          link: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          link?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "license_manager" | "law_manager" | "deputy"
+      vote_type: "for" | "against" | "abstain"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +575,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "license_manager", "law_manager", "deputy"],
+      vote_type: ["for", "against", "abstain"],
+    },
   },
 } as const
