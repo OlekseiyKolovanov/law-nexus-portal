@@ -13,6 +13,8 @@ import { AdminFeedback } from '@/components/admin/AdminFeedback';
 import { AdminStatistics } from '@/components/admin/AdminStatistics';
 import { AdminVoting } from '@/components/admin/AdminVoting';
 import { AdminUserRoles } from '@/components/admin/AdminUserRoles';
+import { AdminPresidentBio } from '@/components/admin/AdminPresidentBio';
+import { AdminCriminalProceedings } from '@/components/admin/AdminCriminalProceedings';
 import { 
   Settings, 
   Users, 
@@ -24,11 +26,12 @@ import {
   MessageSquare,
   BarChart3,
   Vote,
-  Shield
+  Shield,
+  UserCog
 } from 'lucide-react';
 
 const Admin = () => {
-  const { isAdmin, canManageTenders, canManageLegal, loading } = useUserRole();
+  const { isAdmin, isProsecutor, canManageTenders, canManageLegal, loading } = useUserRole();
   const [activeTab, setActiveTab] = useState('statistics');
 
   if (loading) {
@@ -41,7 +44,7 @@ const Admin = () => {
     );
   }
 
-  if (!isAdmin() && !canManageTenders() && !canManageLegal()) {
+  if (!isAdmin() && !isProsecutor() && !canManageTenders() && !canManageLegal()) {
     return (
       <Layout>
         <div className="text-center py-8">
@@ -73,22 +76,25 @@ const Admin = () => {
         <Card className="bg-gradient-card border-0 shadow-medium">
           <CardContent className="p-0">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9 gap-2 h-auto p-2">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 h-auto p-2">
                 <TabsTrigger value="statistics" className="flex items-center gap-2">
                   <BarChart3 className="w-4 h-4" />
                   <span className="hidden sm:inline">Статистика</span>
                 </TabsTrigger>
                 
-                <TabsTrigger value="voting" className="flex items-center gap-2">
-                  <Scale className="w-4 h-4" />
-                  <span className="hidden sm:inline">Голосування</span>
-                </TabsTrigger>
-
-                {(isAdmin() || canManageLegal()) && (
+                {isAdmin() && (
                   <>
+                    <TabsTrigger value="voting" className="flex items-center gap-2">
+                      <Vote className="w-4 h-4" />
+                      <span className="hidden sm:inline">Голосування</span>
+                    </TabsTrigger>
                     <TabsTrigger value="leadership" className="flex items-center gap-2">
                       <Users className="w-4 h-4" />
                       <span className="hidden sm:inline">Керівництво</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="president-bio" className="flex items-center gap-2">
+                      <UserCog className="w-4 h-4" />
+                      <span className="hidden sm:inline">Біографія</span>
                     </TabsTrigger>
                     <TabsTrigger value="laws" className="flex items-center gap-2">
                       <FileText className="w-4 h-4" />
@@ -96,17 +102,12 @@ const Admin = () => {
                     </TabsTrigger>
                     <TabsTrigger value="legal-school" className="flex items-center gap-2">
                       <GraduationCap className="w-4 h-4" />
-                      <span className="hidden sm:inline">Школа права</span>
+                      <span className="hidden sm:inline">Юр. школа</span>
                     </TabsTrigger>
                     <TabsTrigger value="lawyers" className="flex items-center gap-2">
                       <Scale className="w-4 h-4" />
                       <span className="hidden sm:inline">Адвокати</span>
                     </TabsTrigger>
-                  </>
-                )}
-
-                {(isAdmin() || canManageTenders()) && (
-                  <>
                     <TabsTrigger value="tenders" className="flex items-center gap-2">
                       <Briefcase className="w-4 h-4" />
                       <span className="hidden sm:inline">Тендери</span>
@@ -115,18 +116,21 @@ const Admin = () => {
                       <Building2 className="w-4 h-4" />
                       <span className="hidden sm:inline">Підприємства</span>
                     </TabsTrigger>
+                    <TabsTrigger value="feedback" className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      <span className="hidden sm:inline">Зв'язок</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="users" className="flex items-center gap-2">
+                      <Shield className="w-4 h-4" />
+                      <span className="hidden sm:inline">Ролі</span>
+                    </TabsTrigger>
                   </>
                 )}
 
-                <TabsTrigger value="feedback" className="flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" />
-                  <span className="hidden sm:inline">Зворотний зв'язок</span>
-                </TabsTrigger>
-
-                {isAdmin() && (
-                  <TabsTrigger value="users" className="flex items-center gap-2">
-                    <Shield className="w-4 h-4" />
-                    <span className="hidden sm:inline">Користувачі</span>
+                {isProsecutor() && !isAdmin() && (
+                  <TabsTrigger value="proceedings" className="flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    <span className="hidden sm:inline">ЄРДР</span>
                   </TabsTrigger>
                 )}
               </TabsList>
@@ -136,49 +140,44 @@ const Admin = () => {
                   <AdminStatistics />
                 </TabsContent>
 
-                <TabsContent value="voting">
-                  <AdminVoting />
-                </TabsContent>
-
-                {(isAdmin() || canManageLegal()) && (
+                {isAdmin() && (
                   <>
+                    <TabsContent value="voting">
+                      <AdminVoting />
+                    </TabsContent>
                     <TabsContent value="leadership">
                       <AdminLeadership />
                     </TabsContent>
-
+                    <TabsContent value="president-bio">
+                      <AdminPresidentBio />
+                    </TabsContent>
                     <TabsContent value="laws">
                       <AdminLaws />
                     </TabsContent>
-
                     <TabsContent value="legal-school">
                       <AdminLegalSchool />
                     </TabsContent>
-
                     <TabsContent value="lawyers">
                       <AdminLawyers />
                     </TabsContent>
-                  </>
-                )}
-
-                {(isAdmin() || canManageTenders()) && (
-                  <>
                     <TabsContent value="tenders">
                       <AdminTenders />
                     </TabsContent>
-
                     <TabsContent value="enterprises">
                       <AdminEnterprises />
+                    </TabsContent>
+                    <TabsContent value="feedback">
+                      <AdminFeedback />
+                    </TabsContent>
+                    <TabsContent value="users">
+                      <AdminUserRoles />
                     </TabsContent>
                   </>
                 )}
 
-                <TabsContent value="feedback">
-                  <AdminFeedback />
-                </TabsContent>
-
-                {isAdmin() && (
-                  <TabsContent value="users">
-                    <AdminUserRoles />
+                {isProsecutor() && (
+                  <TabsContent value="proceedings">
+                    <AdminCriminalProceedings />
                   </TabsContent>
                 )}
               </div>

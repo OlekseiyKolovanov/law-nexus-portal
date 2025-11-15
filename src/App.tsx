@@ -15,6 +15,10 @@ import Enterprises from "./pages/Enterprises";
 import Contact from "./pages/Contact";
 import Voting from "./pages/Voting";
 import Admin from "./pages/Admin";
+import PresidentBio from "./pages/PresidentBio";
+import CriminalProceedings from "./pages/CriminalProceedings";
+import CriminalProceedingForm from "./pages/CriminalProceedingForm";
+import CriminalProceedingDetail from "./pages/CriminalProceedingDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,15 +34,18 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/leadership" element={<Leadership />} />
+            <Route path="/president-bio" element={<PresidentBio />} />
             <Route path="/voting" element={<Voting />} />
             <Route path="/laws" element={<Laws />} />
             <Route path="/legal-school" element={<LegalSchool />} />
             <Route path="/tenders" element={<Tenders />} />
             <Route path="/lawyers" element={<Lawyers />} />
             <Route path="/enterprises" element={<Enterprises />} />
+            <Route path="/criminal-proceedings" element={<CriminalProceedings />} />
+            <Route path="/criminal-proceedings/new" element={<CriminalProceedingForm />} />
+            <Route path="/criminal-proceedings/:id" element={<CriminalProceedingDetail />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/golos" element={<Voting />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

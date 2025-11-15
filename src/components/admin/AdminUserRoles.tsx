@@ -148,6 +148,7 @@ export const AdminUserRoles = () => {
     switch (role) {
       case 'admin': return 'Адміністратор';
       case 'deputy': return 'Депутат';
+      case 'prosecutor': return 'Прокурор';
       case 'license_manager': return 'Менеджер ліцензій';
       case 'law_manager': return 'Менеджер законів';
       default: return role;
@@ -158,6 +159,7 @@ export const AdminUserRoles = () => {
     switch (role) {
       case 'admin': return 'bg-red-500';
       case 'deputy': return 'bg-blue-500';
+      case 'prosecutor': return 'bg-orange-500';
       case 'license_manager': return 'bg-green-500';
       case 'law_manager': return 'bg-purple-500';
       default: return 'bg-gray-500';
@@ -216,6 +218,7 @@ export const AdminUserRoles = () => {
                   <SelectContent>
                     <SelectItem value="admin">Адміністратор</SelectItem>
                     <SelectItem value="deputy">Депутат</SelectItem>
+                    <SelectItem value="prosecutor">Прокурор</SelectItem>
                     <SelectItem value="license_manager">Менеджер ліцензій</SelectItem>
                     <SelectItem value="law_manager">Менеджер законів</SelectItem>
                   </SelectContent>
