@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      criminal_proceedings: {
+        Row: {
+          circumstances_description: string
+          created_at: string | null
+          crime_date: string
+          id: string
+          incriminating_article: string
+          initiating_structure: string
+          initiator_full_name: string
+          status: string
+          suspect_full_name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          circumstances_description: string
+          created_at?: string | null
+          crime_date: string
+          id?: string
+          incriminating_article: string
+          initiating_structure: string
+          initiator_full_name: string
+          status?: string
+          suspect_full_name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          circumstances_description?: string
+          created_at?: string | null
+          crime_date?: string
+          id?: string
+          incriminating_article?: string
+          initiating_structure?: string
+          initiator_full_name?: string
+          status?: string
+          suspect_full_name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       enterprises: {
         Row: {
           business_type: string | null
@@ -175,6 +217,77 @@ export type Database = {
           title?: string
         }
         Relationships: []
+      }
+      president_biography: {
+        Row: {
+          achievements: string | null
+          bio: string
+          birth_date: string | null
+          education: string | null
+          full_name: string
+          id: string
+          photo_url: string | null
+          position: string
+          updated_at: string | null
+        }
+        Insert: {
+          achievements?: string | null
+          bio: string
+          birth_date?: string | null
+          education?: string | null
+          full_name: string
+          id?: string
+          photo_url?: string | null
+          position?: string
+          updated_at?: string | null
+        }
+        Update: {
+          achievements?: string | null
+          bio?: string
+          birth_date?: string | null
+          education?: string | null
+          full_name?: string
+          id?: string
+          photo_url?: string | null
+          position?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      proceeding_documents: {
+        Row: {
+          created_at: string | null
+          document_link: string
+          document_name: string
+          id: string
+          order_index: number | null
+          proceeding_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          document_link: string
+          document_name: string
+          id?: string
+          order_index?: number | null
+          proceeding_id: string
+        }
+        Update: {
+          created_at?: string | null
+          document_link?: string
+          document_name?: string
+          id?: string
+          order_index?: number | null
+          proceeding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proceeding_documents_proceeding_id_fkey"
+            columns: ["proceeding_id"]
+            isOneToOne: false
+            referencedRelation: "criminal_proceedings"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
