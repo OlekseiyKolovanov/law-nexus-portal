@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { MessageSquare, Loader2, Mail, User, Calendar } from 'lucide-react';
+import { MessageSquare, Loader2, Mail, Calendar } from 'lucide-react';
 
 interface Feedback {
   id: string;
@@ -75,7 +72,6 @@ export const AdminFeedback = () => {
     }
   };
 
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-8">
@@ -92,10 +88,10 @@ export const AdminFeedback = () => {
         <h2 className="text-2xl font-bold">Зворотний зв'язок</h2>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
         {/* Feedback List */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Список звернень</h3>
+          <h3 className="text-lg font-semibold">Всі звернення</h3>
           
           {feedbacks.length === 0 ? (
             <Card>
@@ -111,35 +107,14 @@ export const AdminFeedback = () => {
                 className={`cursor-pointer transition-all hover:shadow-md ${
                   selectedFeedback?.id === feedback.id ? 'ring-2 ring-primary' : ''
                 }`}
-                onClick={() => {
-                  setSelectedFeedback(feedback);
-                  setAdminResponse(feedback.admin_response || '');
-                  setStatusUpdate(feedback.status);
-                }}
+                onClick={() => setSelectedFeedback(feedback)}
               >
-                <CardHeader className="pb-2">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-base">{feedback.subject}</CardTitle>
-                      <CardDescription className="flex items-center gap-2 mt-1">
-                        <User className="w-3 h-3" />
-                        {feedback.name}
-                        <Mail className="w-3 h-3 ml-2" />
-                        {feedback.email}
-                      </CardDescription>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <Badge className={getStatusColor(feedback.status)}>
-                        {getStatusLabel(feedback.status)}
-                      </Badge>
-                      <Badge variant="outline">
-                        {getTypeLabel(feedback.message_type)}
-                      </Badge>
-                    </div>
-                  </div>
+                <CardHeader>
+                  <CardTitle className="text-base">{feedback.name}</CardTitle>
+                  <p className="text-sm text-muted-foreground">{feedback.email}</p>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
+                  <p className="text-sm text-muted-foreground line-clamp-3">
                     {feedback.message}
                   </p>
                   <div className="flex items-center gap-1 mt-2 text-xs text-muted-foreground">
@@ -159,54 +134,38 @@ export const AdminFeedback = () => {
           {selectedFeedback ? (
             <Card>
               <CardHeader>
-                <CardTitle>{selectedFeedback.subject}</CardTitle>
-                <CardDescription>
-                  {selectedFeedback.name} ({selectedFeedback.email}) - {getTypeLabel(selectedFeedback.message_type)}
-                </CardDescription>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle>{selectedFeedback.name}</CardTitle>
+                    <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                      <Mail className="w-4 h-4" />
+                      {selectedFeedback.email}
+                    </div>
+                    <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
+                      <Calendar className="w-4 h-4" />
+                      {new Date(selectedFeedback.created_at).toLocaleDateString('uk-UA')}
+                    </div>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-medium mb-2">Повідомлення:</h4>
-                  <p className="text-sm bg-muted p-3 rounded-md">
-                    {selectedFeedback.message}
-                  </p>
+                  <h4 className="font-semibold mb-2">Повідомлення:</h4>
+                  <p className="text-sm whitespace-pre-wrap">{selectedFeedback.message}</p>
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium">Статус:</label>
-                  <Select value={statusUpdate} onValueChange={setStatusUpdate}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="new">Новий</SelectItem>
-                      <SelectItem value="in_progress">В роботі</SelectItem>
-                      <SelectItem value="resolved">Вирішено</SelectItem>
-                      <SelectItem value="closed">Закрито</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium">Відповідь адміністратора:</label>
-                  <Textarea
-                    value={adminResponse}
-                    onChange={(e) => setAdminResponse(e.target.value)}
-                    placeholder="Введіть відповідь..."
-                    rows={4}
-                  />
-                </div>
-
-                <div className="flex justify-end">
-                  <Button onClick={handleUpdateFeedback}>
-                    Зберегти зміни
-                  </Button>
-                </div>
+                <Button 
+                  onClick={() => handleDeleteFeedback(selectedFeedback.id)} 
+                  variant="destructive" 
+                  className="w-full"
+                >
+                  Видалити повідомлення
+                </Button>
               </CardContent>
             </Card>
           ) : (
             <Card>
-              <CardContent className="text-center py-8">
+              <CardContent className="text-center py-12">
                 <MessageSquare className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
                 <p className="text-muted-foreground">Оберіть звернення для перегляду деталей</p>
               </CardContent>
