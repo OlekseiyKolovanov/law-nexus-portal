@@ -12,13 +12,8 @@ interface Feedback {
   id: string;
   name: string;
   email: string;
-  message_type: string;
-  subject: string;
   message: string;
-  status: string;
-  admin_response?: string;
   created_at: string;
-  updated_at: string;
 }
 
 export const AdminFeedback = () => {
@@ -26,8 +21,6 @@ export const AdminFeedback = () => {
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
-  const [adminResponse, setAdminResponse] = useState('');
-  const [statusUpdate, setStatusUpdate] = useState('');
 
   useEffect(() => {
     fetchFeedbacks();
@@ -54,68 +47,34 @@ export const AdminFeedback = () => {
     }
   };
 
-  const handleUpdateFeedback = async () => {
-    if (!selectedFeedback) return;
+  const handleDeleteFeedback = async (id: string) => {
+    if (!confirm('Ви впевнені, що хочете видалити це повідомлення?')) return;
 
     try {
       const { error } = await supabase
         .from('feedback')
-        .update({
-          status: statusUpdate || selectedFeedback.status,
-          admin_response: adminResponse || selectedFeedback.admin_response,
-        })
-        .eq('id', selectedFeedback.id);
+        .delete()
+        .eq('id', id);
 
       if (error) throw error;
 
       toast({
         title: 'Успіх',
-        description: 'Зворотний зв\'язок оновлено',
+        description: 'Повідомлення видалено',
       });
 
       await fetchFeedbacks();
       setSelectedFeedback(null);
-      setAdminResponse('');
-      setStatusUpdate('');
     } catch (error) {
-      console.error('Error updating feedback:', error);
+      console.error('Error deleting feedback:', error);
       toast({
         title: 'Помилка',
-        description: 'Не вдалося оновити зворотний зв\'язок',
+        description: 'Не вдалося видалити повідомлення',
         variant: 'destructive',
       });
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'new': return 'bg-blue-500';
-      case 'in_progress': return 'bg-yellow-500';
-      case 'resolved': return 'bg-green-500';
-      case 'closed': return 'bg-gray-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const getStatusLabel = (status: string) => {
-    switch (status) {
-      case 'new': return 'Новий';
-      case 'in_progress': return 'В роботі';
-      case 'resolved': return 'Вирішено';
-      case 'closed': return 'Закрито';
-      default: return status;
-    }
-  };
-
-  const getTypeLabel = (type: string) => {
-    switch (type) {
-      case 'question': return 'Питання';
-      case 'complaint': return 'Скарга';
-      case 'suggestion': return 'Пропозиція';
-      case 'message': return 'Повідомлення';
-      default: return type;
-    }
-  };
 
   if (loading) {
     return (

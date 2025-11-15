@@ -195,8 +195,7 @@ export const AdminVoting = () => {
   const resetForm = () => {
     setFormData({
       title: '',
-      law_link: '',
-      additional_info: '',
+      link: '',
       is_active: true,
     });
     setEditingVoting(null);
@@ -206,8 +205,7 @@ export const AdminVoting = () => {
     setEditingVoting(voting);
     setFormData({
       title: voting.title,
-      law_link: voting.law_link,
-      additional_info: voting.additional_info || '',
+      link: voting.link || '',
       is_active: voting.is_active,
     });
     setDialogOpen(true);
@@ -256,25 +254,13 @@ export const AdminVoting = () => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="law_link">Посилання на закон *</Label>
+                <Label htmlFor="link">Посилання на закон</Label>
                 <Input
-                  id="law_link"
+                  id="link"
                   type="url"
-                  value={formData.law_link}
-                  onChange={(e) => setFormData({ ...formData, law_link: e.target.value })}
-                  required
+                  value={formData.link}
+                  onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                   placeholder="https://..."
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="additional_info">Додаткова інформація</Label>
-                <Textarea
-                  id="additional_info"
-                  value={formData.additional_info}
-                  onChange={(e) => setFormData({ ...formData, additional_info: e.target.value })}
-                  rows={3}
-                  placeholder="Додаткові деталі про законопроект..."
                 />
               </div>
               
@@ -351,15 +337,17 @@ export const AdminVoting = () => {
                       </CardDescription>
                     </div>
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                      >
-                        <a href={voting.law_link} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      </Button>
+                      {voting.link && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          asChild
+                        >
+                          <a href={voting.link} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        </Button>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
@@ -384,11 +372,6 @@ export const AdminVoting = () => {
                     </div>
                   </div>
                 </CardHeader>
-                {voting.additional_info && (
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">{voting.additional_info}</p>
-                  </CardContent>
-                )}
               </Card>
             );
           })
