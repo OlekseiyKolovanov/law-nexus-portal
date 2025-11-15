@@ -14,9 +14,8 @@ import { Loader2 } from 'lucide-react';
 
 interface TenderFormQuestion {
   id: string;
-  question: string;
-  question_type: 'text' | 'textarea' | 'select' | 'radio' | 'checkbox';
-  options?: string[];
+  question_text: string;
+  question_type: string;
   is_required: boolean;
   order_index: number;
 }
@@ -94,13 +93,17 @@ export const TenderForm = ({ tender, onClose }: TenderFormProps) => {
     setSubmitting(true);
 
     try {
+      // Create individual response records for each question
+      const responseRecords = questions.map(q => ({
+        tender_id: tender.id,
+        user_id: user.id,
+        question_id: q.id,
+        response_text: typeof responses[q.id] === 'string' ? responses[q.id] : JSON.stringify(responses[q.id])
+      }));
+
       const { error } = await supabase
         .from('tender_form_responses')
-        .insert({
-          tender_id: tender.id,
-          user_id: user.id,
-          responses: responses
-        });
+        .insert(responseRecords);
 
       if (error) {
         throw error;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -65,7 +65,7 @@ export const AdminUserRoles = () => {
       // Find user by nickname
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
-        .select('user_id')
+        .select('id')
         .eq('nickname', formData.user_nickname)
         .single();
 
@@ -81,7 +81,7 @@ export const AdminUserRoles = () => {
       const { error } = await supabase
         .from('user_roles')
         .insert({
-          user_id: profile.user_id,
+          user_id: profile.id,
           role: formData.role,
         });
 

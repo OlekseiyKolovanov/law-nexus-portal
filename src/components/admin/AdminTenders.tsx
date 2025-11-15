@@ -24,19 +24,19 @@ interface Tender {
 
 interface TenderQuestion {
   id?: string;
-  question: string;
-  question_type: 'text' | 'textarea' | 'select' | 'radio' | 'checkbox';
-  options: string[];
+  question_text: string;
+  question_type: string;
   is_required: boolean;
   order_index: number;
 }
 
 interface TenderResponse {
   id: string;
+  question_id: string;
+  response_text: string;
   tender_id: string;
-  user_id: string | null;
-  responses: any;
-  submitted_at: string;
+  user_id: string;
+  created_at: string;
   profiles?: {
     first_name?: string;
     last_name?: string;
