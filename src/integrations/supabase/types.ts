@@ -447,7 +447,12 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "license_manager" | "law_manager" | "deputy"
+      app_role:
+        | "admin"
+        | "license_manager"
+        | "law_manager"
+        | "deputy"
+        | "prosecutor"
       vote_type: "for" | "against" | "abstain"
     }
     CompositeTypes: {
@@ -576,7 +581,13 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "license_manager", "law_manager", "deputy"],
+      app_role: [
+        "admin",
+        "license_manager",
+        "law_manager",
+        "deputy",
+        "prosecutor",
+      ],
       vote_type: ["for", "against", "abstain"],
     },
   },
