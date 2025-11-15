@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Database } from '@/integrations/supabase/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -80,10 +81,10 @@ export const AdminUserRoles = () => {
 
       const { error } = await supabase
         .from('user_roles')
-        .insert({
+        .insert([{
           user_id: profile.id,
-          role: formData.role,
-        });
+          role: formData.role as Database['public']['Enums']['app_role'],
+        }]);
 
       if (error) {
         if (error.code === '23505') { // Unique constraint violation

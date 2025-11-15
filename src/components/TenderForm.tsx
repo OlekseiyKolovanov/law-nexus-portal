@@ -135,7 +135,7 @@ export const TenderForm = ({ tender, onClose }: TenderFormProps) => {
         return (
           <div key={question.id} className="space-y-2">
             <Label htmlFor={question.id}>
-              {question.question}
+              {question.question_text}
               {isRequired && <span className="text-destructive ml-1">*</span>}
             </Label>
             <Input
@@ -151,7 +151,7 @@ export const TenderForm = ({ tender, onClose }: TenderFormProps) => {
         return (
           <div key={question.id} className="space-y-2">
             <Label htmlFor={question.id}>
-              {question.question}
+              {question.question_text}
               {isRequired && <span className="text-destructive ml-1">*</span>}
             </Label>
             <Textarea
@@ -163,81 +163,6 @@ export const TenderForm = ({ tender, onClose }: TenderFormProps) => {
           </div>
         );
 
-      case 'select':
-        return (
-          <div key={question.id} className="space-y-2">
-            <Label htmlFor={question.id}>
-              {question.question}
-              {isRequired && <span className="text-destructive ml-1">*</span>}
-            </Label>
-            <Select
-              value={responses[question.id] || ''}
-              onValueChange={(value) => handleResponseChange(question.id, value)}
-              required={isRequired}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Оберіть варіант" />
-              </SelectTrigger>
-              <SelectContent>
-                {question.options?.map((option, index) => (
-                  <SelectItem key={index} value={option}>
-                    {option}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        );
-
-      case 'radio':
-        return (
-          <div key={question.id} className="space-y-2">
-            <Label>
-              {question.question}
-              {isRequired && <span className="text-destructive ml-1">*</span>}
-            </Label>
-            <RadioGroup
-              value={responses[question.id] || ''}
-              onValueChange={(value) => handleResponseChange(question.id, value)}
-            >
-              {question.options?.map((option, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <RadioGroupItem value={option} id={`${question.id}-${index}`} />
-                  <Label htmlFor={`${question.id}-${index}`}>{option}</Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-        );
-
-      case 'checkbox':
-        return (
-          <div key={question.id} className="space-y-2">
-            <Label>
-              {question.question}
-              {isRequired && <span className="text-destructive ml-1">*</span>}
-            </Label>
-            <div className="space-y-2">
-              {question.options?.map((option, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`${question.id}-${index}`}
-                    checked={responses[question.id]?.includes?.(option) || false}
-                    onCheckedChange={(checked) => {
-                      const currentResponses = responses[question.id] || [];
-                      if (checked) {
-                        handleResponseChange(question.id, [...currentResponses, option]);
-                      } else {
-                        handleResponseChange(question.id, currentResponses.filter((r: string) => r !== option));
-                      }
-                    }}
-                  />
-                  <Label htmlFor={`${question.id}-${index}`}>{option}</Label>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
 
       default:
         return null;
