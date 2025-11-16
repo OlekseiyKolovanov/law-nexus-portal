@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './use-auth';
 
-type UserRole = 'admin' | 'license_manager' | 'law_manager' | 'deputy' | 'prosecutor';
+type UserRole = 'admin' | 'license_manager' | 'law_manager' | 'deputy' | 'prosecutor' | 'aau_manager';
 
 export const useUserRole = () => {
   const { user } = useAuth();
@@ -46,6 +46,7 @@ export const useUserRole = () => {
   const isProsecutor = () => hasRole('prosecutor');
   const canManageTenders = () => hasRole('admin') || hasRole('license_manager');
   const canManageLegal = () => hasRole('admin') || hasRole('law_manager');
+  const canManageAAU = () => hasRole('admin') || hasRole('aau_manager');
 
   return {
     roles,
@@ -56,5 +57,6 @@ export const useUserRole = () => {
     isProsecutor,
     canManageTenders,
     canManageLegal,
+    canManageAAU,
   };
 };

@@ -4,18 +4,21 @@
 
 @layer base {
   :root {
-    /* Light theme - Crisp Ukrainian blue and yellow */
-    --background: 210 15% 99%;
+    /* Light theme - New Year themed */
+    --background: 215 25% 98%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 213 94% 60%; /* More vibrant Ukrainian blue */
+    --primary: 213 94% 60%; /* Ukrainian blue */
     --primary-foreground: 0 0% 100%;
     --primary-glow: 213 94% 75%;
-    --secondary: 47 100% 70%; /* Crisp Ukrainian yellow */
+    --secondary: 47 100% 70%; /* Ukrainian yellow */
     --secondary-foreground: 222.2 84% 4.9%;
+    --accent-red: 0 72% 58%; /* New Year red */
+    --accent-gold: 43 95% 58%; /* New Year gold */
+    --accent-silver: 210 15% 75%; /* Silver */
     --muted: 210 15% 97%;
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 15% 94%;
@@ -42,19 +45,20 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Crisp gradients */
+    /* New Year festive gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)/0.95) 50%, hsl(var(--secondary)/0.08) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card)/0.95), hsl(var(--primary)/0.03));
-    --gradient-glass: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-    --gradient-glass-header: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(255,255,255,0.9));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--accent-gold)/0.08) 50%, hsl(var(--accent-red)/0.05) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--card)/0.98), hsl(var(--accent-gold)/0.04));
+    --gradient-glass: linear-gradient(145deg, rgba(255,255,255,0.97), rgba(255,255,255,0.88));
+    --gradient-glass-header: linear-gradient(145deg, rgba(255,255,255,0.99), rgba(255,255,255,0.92));
     --gradient-icon: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-festive: linear-gradient(135deg, hsl(var(--accent-red)), hsl(var(--accent-gold)));
     
-    /* Crisp light theme shadows */
+    /* Festive shadows with sparkle */
     --shadow-soft: 0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
     --shadow-medium: 0 4px 12px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.06);
     --shadow-large: 0 8px 32px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
-    --shadow-glow: 0 0 24px hsl(var(--primary)/0.25), 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-glow: 0 0 24px hsl(var(--accent-gold)/0.3), 0 4px 12px rgba(0,0,0,0.1);
     --shadow-glass: 0 4px 16px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8);
     
     /* Transitions */
@@ -64,18 +68,21 @@
   }
 
   .dark {
-    /* Dark theme with elegant blues and subtle Ukrainian touches */
+    /* Dark theme with New Year touches */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 8%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 8%;
     --popover-foreground: 210 40% 98%;
-    --primary: 213 94% 68%; /* Brighter Ukrainian blue for dark theme */
+    --primary: 213 94% 68%; /* Brighter Ukrainian blue */
     --primary-foreground: 222.2 84% 4.9%;
     --primary-glow: 213 94% 80%;
-    --secondary: 47 100% 70%; /* Softer yellow for dark theme */
+    --secondary: 47 100% 70%;
     --secondary-foreground: 222.2 84% 4.9%;
+    --accent-red: 0 72% 62%;
+    --accent-gold: 43 95% 65%;
+    --accent-silver: 210 15% 80%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
