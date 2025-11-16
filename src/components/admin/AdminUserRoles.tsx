@@ -149,8 +149,9 @@ export const AdminUserRoles = () => {
       case 'admin': return 'Адміністратор';
       case 'deputy': return 'Депутат';
       case 'prosecutor': return 'Прокурор';
-      case 'license_manager': return 'Менеджер ліцензій';
-      case 'law_manager': return 'Менеджер законів';
+      case 'license_manager': return 'Менеджер ліцензій (тендери)';
+      case 'law_manager': return 'Голова Верховної Ради (закони, голосування)';
+      case 'aau_manager': return 'Голова ААУ (адвокати, юр.школа)';
       default: return role;
     }
   };
@@ -162,6 +163,7 @@ export const AdminUserRoles = () => {
       case 'prosecutor': return 'bg-orange-500';
       case 'license_manager': return 'bg-green-500';
       case 'law_manager': return 'bg-purple-500';
+      case 'aau_manager': return 'bg-cyan-500';
       default: return 'bg-gray-500';
     }
   };
@@ -219,8 +221,9 @@ export const AdminUserRoles = () => {
                     <SelectItem value="admin">Адміністратор</SelectItem>
                     <SelectItem value="deputy">Депутат</SelectItem>
                     <SelectItem value="prosecutor">Прокурор</SelectItem>
-                    <SelectItem value="license_manager">Менеджер ліцензій</SelectItem>
-                    <SelectItem value="law_manager">Менеджер законів</SelectItem>
+                    <SelectItem value="license_manager">Менеджер ліцензій (тендери)</SelectItem>
+                    <SelectItem value="law_manager">Голова Верховної Ради (закони, голосування)</SelectItem>
+                    <SelectItem value="aau_manager">Голова ААУ (адвокати, юр.школа)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

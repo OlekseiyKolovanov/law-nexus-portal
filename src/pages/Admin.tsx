@@ -31,7 +31,7 @@ import {
 } from 'lucide-react';
 
 const Admin = () => {
-  const { isAdmin, isProsecutor, canManageTenders, canManageLegal, loading } = useUserRole();
+  const { isAdmin, isProsecutor, canManageTenders, canManageLegal, canManageAAU, loading } = useUserRole();
   const [activeTab, setActiveTab] = useState('statistics');
 
   if (loading) {
@@ -44,7 +44,7 @@ const Admin = () => {
     );
   }
 
-  if (!isAdmin() && !isProsecutor() && !canManageTenders() && !canManageLegal()) {
+  if (!isAdmin() && !isProsecutor() && !canManageTenders() && !canManageLegal() && !canManageAAU()) {
     return (
       <Layout>
         <div className="text-center py-8">
