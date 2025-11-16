@@ -566,6 +566,7 @@ export type Database = {
         | "law_manager"
         | "deputy"
         | "prosecutor"
+        | "aau_manager"
       vote_type: "for" | "against" | "abstain"
     }
     CompositeTypes: {
@@ -700,6 +701,7 @@ export const Constants = {
         "law_manager",
         "deputy",
         "prosecutor",
+        "aau_manager",
       ],
       vote_type: ["for", "against", "abstain"],
     },
