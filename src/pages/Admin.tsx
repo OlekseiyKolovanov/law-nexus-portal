@@ -44,7 +44,9 @@ const Admin = () => {
     );
   }
 
-  if (!isAdmin() && !isProsecutor() && !canManageTenders() && !canManageLegal() && !canManageAAU()) {
+  const hasAccess = isAdmin() || isProsecutor() || canManageTenders() || canManageLegal() || canManageAAU();
+
+  if (!hasAccess) {
     return (
       <Layout>
         <div className="text-center py-8">
