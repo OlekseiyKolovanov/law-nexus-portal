@@ -79,9 +79,9 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 glass-header">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+      <header className="sticky top-0 z-50 glass-header overflow-visible">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
+          <div className="flex justify-between items-center h-16 relative">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
               <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform duration-300">
@@ -104,8 +104,8 @@ export function Layout({ children }: LayoutProps) {
                         <span>{item.name}</span>
                         <ChevronDown className="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" />
                       </button>
-                      <div className="absolute left-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none group-hover:pointer-events-auto">
-                        <div className="bg-card backdrop-blur-md rounded-xl shadow-xl border border-border/50 p-2 animate-scale-in">
+                      <div className="absolute left-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[100] pointer-events-none group-hover:pointer-events-auto">
+                        <div className="bg-card/95 backdrop-blur-md rounded-xl shadow-2xl border border-border/50 p-2">
                           {item.items.map((subItem) => (
                             <Link
                               key={subItem.name}
