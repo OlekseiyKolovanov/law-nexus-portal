@@ -135,7 +135,87 @@
     background-attachment: fixed;
     background-image: radial-gradient(circle at 20% 80%, hsl(var(--primary)/0.03) 0%, transparent 50%),
                       radial-gradient(circle at 80% 20%, hsl(var(--secondary)/0.03) 0%, transparent 50%);
+    position: relative;
+    overflow-x: hidden;
   }
+
+  /* Snowflakes animation */
+  @keyframes snowfall {
+    0% {
+      transform: translateY(-10vh) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) translateX(100px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes snowfall-slow {
+    0% {
+      transform: translateY(-10vh) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(110vh) translateX(-50px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      opacity: 0.8;
+      filter: brightness(1);
+    }
+    50% {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+  }
+
+  .snowflake {
+    position: fixed;
+    top: -10vh;
+    color: hsl(var(--accent-silver));
+    font-size: 1em;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    animation: snowfall linear infinite;
+  }
+
+  .snowflake:nth-child(1) { left: 5%; animation-duration: 15s; animation-delay: 0s; font-size: 0.8em; }
+  .snowflake:nth-child(2) { left: 15%; animation: snowfall-slow 18s linear infinite; animation-delay: 2s; font-size: 1.2em; }
+  .snowflake:nth-child(3) { left: 25%; animation-duration: 12s; animation-delay: 4s; font-size: 1em; }
+  .snowflake:nth-child(4) { left: 35%; animation: snowfall-slow 20s linear infinite; animation-delay: 1s; font-size: 0.9em; }
+  .snowflake:nth-child(5) { left: 45%; animation-duration: 16s; animation-delay: 3s; font-size: 1.1em; }
+  .snowflake:nth-child(6) { left: 55%; animation: snowfall-slow 14s linear infinite; animation-delay: 5s; font-size: 0.7em; }
+  .snowflake:nth-child(7) { left: 65%; animation-duration: 17s; animation-delay: 2s; font-size: 1em; }
+  .snowflake:nth-child(8) { left: 75%; animation: snowfall-slow 19s linear infinite; animation-delay: 4s; font-size: 1.3em; }
+  .snowflake:nth-child(9) { left: 85%; animation-duration: 13s; animation-delay: 1s; font-size: 0.8em; }
+  .snowflake:nth-child(10) { left: 95%; animation: snowfall-slow 21s linear infinite; animation-delay: 3s; font-size: 1em; }
+  .snowflake:nth-child(11) { left: 10%; animation-duration: 16s; animation-delay: 5s; font-size: 0.9em; }
+  .snowflake:nth-child(12) { left: 20%; animation: snowfall-slow 15s linear infinite; animation-delay: 2s; font-size: 1.1em; }
+  .snowflake:nth-child(13) { left: 30%; animation-duration: 18s; animation-delay: 4s; font-size: 0.8em; }
+  .snowflake:nth-child(14) { left: 40%; animation: snowfall-slow 14s linear infinite; animation-delay: 1s; font-size: 1.2em; }
+  .snowflake:nth-child(15) { left: 50%; animation-duration: 20s; animation-delay: 3s; font-size: 1em; }
+  .snowflake:nth-child(16) { left: 60%; animation: snowfall-slow 17s linear infinite; animation-delay: 5s; font-size: 0.9em; }
+  .snowflake:nth-child(17) { left: 70%; animation-duration: 19s; animation-delay: 2s; font-size: 1.1em; }
+  .snowflake:nth-child(18) { left: 80%; animation: snowfall-slow 16s linear infinite; animation-delay: 4s; font-size: 0.8em; }
+  .snowflake:nth-child(19) { left: 90%; animation-duration: 15s; animation-delay: 1s; font-size: 1em; }
+  .snowflake:nth-child(20) { left: 3%; animation: snowfall-slow 22s linear infinite; animation-delay: 3s; font-size: 1.2em; }
 }
 
 @layer components {
@@ -202,6 +282,10 @@
     @apply before:absolute before:inset-0 before:rounded-full before:bg-gradient-icon;
     @apply before:opacity-80 before:blur-sm before:transition-all before:duration-500;
     @apply hover:before:opacity-100 hover:before:blur-0 hover:before:scale-110;
+  }
+
+  .animate-glow {
+    animation: glow-pulse 3s ease-in-out infinite;
   }
   
   .soft-button {

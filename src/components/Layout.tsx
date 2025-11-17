@@ -19,7 +19,8 @@ import {
   X,
   ChevronDown,
   ShieldAlert,
-  Image
+  Image,
+  Briefcase
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -36,47 +37,49 @@ export function Layout({ children }: LayoutProps) {
 
   const navigation = [
     { name: 'Головна', href: '/', icon: Home },
-    { 
-      name: 'Верховна Рада', 
+    {
+      name: 'Верховна Рада',
       icon: Users,
-      subItems: [
+      items: [
         { name: 'Керівництво', href: '/leadership' },
-        { name: 'Голосування', href: '/voting' },
-        { name: 'Закони', href: '/laws' },
-      ]
+        { name: 'Біографія Президента', href: '/president-bio' },
+      ],
     },
-    { 
-      name: 'Освіта', 
+    {
+      name: 'Освіта',
       icon: GraduationCap,
-      subItems: [
+      items: [
         { name: 'Юридична школа', href: '/legal-school' },
-      ]
+      ],
     },
-    { 
-      name: 'Бізнес', 
-      icon: Building2,
-      subItems: [
+    {
+      name: 'Бізнес',
+      icon: Briefcase,
+      items: [
         { name: 'Тендери', href: '/tenders' },
         { name: 'Підприємства', href: '/enterprises' },
-      ]
+      ],
     },
-    { 
-      name: 'Юстиція', 
+    {
+      name: 'Юстиція',
       icon: Scale,
-      subItems: [
+      items: [
+        { name: 'Закони', href: '/laws' },
         { name: 'Адвокати', href: '/lawyers' },
+        { name: 'Голосування', href: '/voting' },
         { name: 'Прокуратура (ЄРДР)', href: '/criminal-proceedings' },
-      ]
+      ],
     },
     { name: 'Контакти', href: '/contact', icon: Phone },
+    { name: 'Фото', href: 'https://photos.app.goo.gl/K1qUmJiRqV3Nwe5f8', icon: Image, external: true },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <div className="min-h-screen bg-background">
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 glass-header border-b border-white/10 dark:border-white/5 backdrop-blur-md">
+      <header className="sticky top-0 z-50 glass-header">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -84,7 +87,7 @@ export function Layout({ children }: LayoutProps) {
               <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform duration-300">
                 <Scale className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="hidden sm:block font-bold text-base lg:text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="hidden sm:block font-bold text-base lg:text-lg bg-gradient-primary bg-clip-text text-transparent">
                 Верховна Рада України
               </span>
             </Link>
@@ -93,25 +96,21 @@ export function Layout({ children }: LayoutProps) {
             <div className="hidden lg:flex items-center gap-1">
               {navigation.map((item) => {
                 const Icon = item.icon;
-                if (item.subItems) {
+                if (item.items) {
                   return (
                     <div key={item.name} className="relative group">
-                      <button className="nav-item flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300">
+                      <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all duration-200">
                         <Icon className="w-4 h-4" />
                         <span>{item.name}</span>
-                        <ChevronDown className="w-3 h-3" />
+                        <ChevronDown className="w-3 h-3 transition-transform duration-200 group-hover:rotate-180" />
                       </button>
-                      <div className="absolute top-full left-0 mt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-large border border-border/20 py-2 backdrop-blur-sm">
-                          {item.subItems.map((subItem) => (
+                      <div className="absolute left-0 top-full mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none group-hover:pointer-events-auto">
+                        <div className="bg-card backdrop-blur-md rounded-xl shadow-xl border border-border/50 p-2 animate-scale-in">
+                          {item.items.map((subItem) => (
                             <Link
-                              key={subItem.href}
+                              key={subItem.name}
                               to={subItem.href}
-                              className={`block px-4 py-2 text-sm transition-colors ${
-                                isActive(subItem.href)
-                                  ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30'
-                                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700'
-                              }`}
+                              className="block px-4 py-3 text-sm text-foreground/80 hover:text-foreground hover:bg-accent/80 rounded-lg transition-all duration-200"
                             >
                               {subItem.name}
                             </Link>
@@ -124,11 +123,13 @@ export function Layout({ children }: LayoutProps) {
                 return (
                   <Link
                     key={item.name}
-                    to={item.href}
-                    className={`nav-item flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                      isActive(item.href)
-                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    to={item.href!}
+                    target={item.external ? '_blank' : undefined}
+                    rel={item.external ? 'noopener noreferrer' : undefined}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive(item.href!)
+                        ? 'bg-accent text-foreground'
+                        : 'text-foreground/80 hover:text-foreground hover:bg-accent/50'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -140,49 +141,37 @@ export function Layout({ children }: LayoutProps) {
 
             {/* User Actions */}
             <div className="flex items-center gap-2 flex-shrink-0">
+              {hasAdminAccess && (
+                <Link
+                  to="/admin"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-primary text-primary-foreground text-sm font-medium shadow-glow hover:shadow-xl transition-all duration-300 hover:scale-105 animate-glow"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span className="hidden md:inline">Адмін панель</span>
+                </Link>
+              )}
+              
               <ThemeToggle />
-              
-              {/* Photo Hosting Link */}
-              <a
-                href="https://postimages.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-item hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
-                title="Фотохостинг"
-              >
-                <Image className="w-4 h-4" />
-                <span className="hidden md:inline">Фото</span>
-              </a>
-              
+
               {user ? (
                 <div className="flex items-center gap-2">
-                  {hasAdminAccess && (
-                    <Link
-                      to="/admin"
-                      className="nav-item flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
-                    >
-                      <Settings className="w-4 h-4" />
-                      <span className="hidden sm:inline">Панель</span>
-                    </Link>
-                  )}
-                  
-                  <div className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-green-50/80 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-sm">
+                  <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg bg-accent/50 text-foreground text-sm">
                     <User className="w-4 h-4" />
                     <span className="hidden lg:inline max-w-[100px] truncate">{user.email}</span>
                   </div>
                   
                   <button
                     onClick={signOut}
-                    className="nav-item flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-destructive hover:bg-destructive/10 transition-all duration-200"
                   >
                     <LogOut className="w-4 h-4" />
-                    <span className="hidden sm:inline">Вийти</span>
+                    <span className="hidden sm:inline">Вихід</span>
                   </button>
                 </div>
               ) : (
                 <Link
                   to="/auth"
-                  className="nav-item flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-primary text-primary-foreground text-sm font-medium shadow-glow hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                   <User className="w-4 h-4" />
                   <span>Увійти</span>
@@ -192,7 +181,7 @@ export function Layout({ children }: LayoutProps) {
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden nav-item p-2 rounded-lg text-gray-600 dark:text-gray-300"
+                className="lg:hidden p-2 rounded-lg text-foreground/80 hover:text-foreground hover:bg-accent/50 transition-all duration-200"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -201,51 +190,44 @@ export function Layout({ children }: LayoutProps) {
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="lg:hidden border-t border-border/20 py-4 space-y-2 animate-fade-in">
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                if (item.subItems) {
-                  return (
-                    <div key={item.name} className="space-y-1">
-                      <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300">
-                        <Icon className="w-4 h-4" />
+            <div className="lg:hidden py-4 space-y-2 animate-scale-in">
+              {navigation.map((item) => (
+                <div key={item.name}>
+                  {item.items ? (
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/60">
+                        <item.icon className="w-4 h-4" />
                         <span>{item.name}</span>
                       </div>
-                      <div className="ml-6 space-y-1">
-                        {item.subItems.map((subItem) => (
-                          <Link
-                            key={subItem.href}
-                            to={subItem.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                              isActive(subItem.href)
-                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30'
-                                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700'
-                            }`}
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </div>
+                      {item.items.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          to={subItem.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block pl-10 pr-3 py-2 text-sm text-foreground/80 hover:text-foreground hover:bg-accent/50 rounded-lg transition-all duration-200"
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
                     </div>
-                  );
-                }
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      isActive(item.href)
-                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30'
-                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
+                  ) : (
+                    <Link
+                      to={item.href!}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActive(item.href!)
+                          ? 'bg-accent text-foreground'
+                          : 'text-foreground/80 hover:text-foreground hover:bg-accent/50'
+                      }`}
+                    >
+                      <item.icon className="w-4 h-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  )}
+                </div>
+              ))}
             </div>
           )}
         </nav>

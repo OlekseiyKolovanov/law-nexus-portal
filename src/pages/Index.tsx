@@ -86,6 +86,15 @@ const Index = () => {
 
   return (
     <Layout>
+      {/* Snowflakes */}
+      <div className="snowflakes" aria-hidden="true">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="snowflake">
+            ❄
+          </div>
+        ))}
+      </div>
+      
       <div className="space-y-8">
         {/* Hero Section */}
         <section className="relative overflow-hidden rounded-3xl bg-gradient-hero border border-border/20 shadow-large">

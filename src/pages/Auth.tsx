@@ -171,6 +171,8 @@ const Auth = () => {
                       <FormControl>
                         <Input
                           placeholder="example@email.com"
+                          type="email"
+                          autoComplete="email"
                           {...field}
                           disabled={loading}
                           className="transition-all duration-300 focus:shadow-medium rounded-xl"
@@ -189,6 +191,8 @@ const Auth = () => {
                       <FormControl>
                         <Input
                           placeholder="Ваш унікальний нік"
+                          type="text"
+                          autoComplete="username"
                           {...field}
                           disabled={loading}
                           className="transition-all duration-300 focus:shadow-medium rounded-xl"
